@@ -18,7 +18,6 @@ function createId() {
 
 function addingListener() {
     let listenObject = document.getElementsByTagName("TD");
-    console.log(typeof listenObject);
     listenObject.addEventListener("click", function () {     selectField(fieldId); }, false);
 } 
 
