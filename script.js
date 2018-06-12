@@ -19,6 +19,7 @@ function createId() {
 function addingListener() {
     let listenObject = document.getElementsByTagName("TD");
     listenObject.addEventListener("click", function () {     selectField(fieldId); }, false);
+    // ezt adtuk hozzá
 } 
 
 function moneyCheck() {
