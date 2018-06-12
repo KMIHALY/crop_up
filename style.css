@@ -1,0 +1,107 @@
+html, body {
+    margin: 0px 0px 0px 0px; 
+    width: 504px;
+    min-width: 504px;
+    background-image: url("\Pictures/drysoil.jpg");
+    background-size: cover;
+    }
+
+.board {
+    position: absolute; 
+    top: 50px;
+    left: 50%;
+    margin-left: -252px;
+    width: 500px;
+    height: 500px;
+    border: 2px solid black;
+}
+
+td {
+    background-image: url("\Pictures/soil_texture.jpg");
+    background-size: 100px 100px;
+    background-repeat: repeat;
+    width: 100px;
+    height: 100px;
+    
+}
+
+.fieldsize {
+    height: 100px;
+    width: 100px;
+    position: relative;
+    float: left;
+}
+
+.grassfield {
+    background-image: url("\Pictures/grass_texture.jpg");
+    background-size: cover;
+    cursor:pointer;
+}
+
+#controlpanel {
+    height:fit-content;
+    width: 140px;
+    position: fixed;
+    z-index: +1;
+    right: 0;
+    top: 50px; 
+    background-color: rgb(59, 59, 59);
+    border-style: outset;
+    border-color: darkgray;
+    border-width: 1px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+button {
+    display: block;
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-size: 12px;
+}
+
+#displayButton {
+    margin-top: 5px;
+}
+
+.display {
+    margin: auto;
+    margin-top: 2px;
+    margin-bottom: 5px;
+    width: 80px;
+    background-color: lightgrey;
+    border-color: black;
+    border-style: solid;
+    border-width: 1px;
+    text-align: right;
+}
+
+div p {
+    text-align: center;
+    color: gold;
+    font-weight: bold;
+    
+}
+
+div p:nth-child(1) {
+    margin-top: 10px;
+    font-size: 18px;
+    margin-bottom: 3px;
+}
+
+div p:nth-child(3) {
+    margin-top: 3px;
+    font-size: 14px;
+}
+
+select {
+    margin: auto;
+}
+
+.fieldBorder {
+    border-style: dashed;
+    border-width: 2px;
+    border-color: brown;
+}
+

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>Crop UP!</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js"></script>
+</head>
+
+<body onload="showMoney(); ">
+
+  <!-- page content -->
+  
+    <div id="controlpanel">
+      <p>Bank Account</p>
+      <div class="display" id="account"></div>
+      <p>Golden Kitten Thaler</p>
+      <button onclick="newField()">New field (20)</button>
+      <select id="seed" style="display:none">
+        <option value="wheat" id="displayOptionWheat" style="display:block">Wheat</option>
+        <option value="corn" id="displayOptionCorn" style="display:none">Corn</option>
+        <option value="marijuana" id="displayOptionMarijuana" style="display:none">Marijuana</option>
+        <option value="poppy" id="displayOptionPoppy" style="display:none">Poppy</option>
+        <option value="potato" id="displayOptionPotato" style="display:none">Potato</option>
+        <option value="tomato" id="displayOptionTomato" style="display:none">Tomato</option>
+
+      </select>
+      <button onclick="sowSomething()" id="displayButton" style="display:none">Sow seed (5)</button>
+      <p>Other Property</p>
+      <div class="display">0 of nothing</div>
+
+    </div>
+  
+  <table id="table25" class="board">
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+
+  </table>
+
+  
+
+</body>
+
+</html>
