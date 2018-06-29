@@ -8,15 +8,16 @@
   <script src="script.js"></script>
 </head>
 
-<body onload="showMoney(); ">
+<body onload="showMoney(); createIdAttribute(); addingListener()" id="ezbaj">
 
   <!-- page content -->
   
     <div id="controlpanel">
+      <p id="timer"></p>
       <p>Bank Account</p>
       <div class="display" id="account"></div>
       <p>Golden Kitten Thaler</p>
-      <button onclick="newField()">New field (20)</button>
+      <button onclick="newField(currentFieldId)">Buy and irrigate field (20)</button>
       <select id="seed" style="display:none">
         <option value="wheat" id="displayOptionWheat" style="display:block">Wheat</option>
         <option value="corn" id="displayOptionCorn" style="display:none">Corn</option>
@@ -26,7 +27,7 @@
         <option value="tomato" id="displayOptionTomato" style="display:none">Tomato</option>
 
       </select>
-      <button onclick="sowSomething()" id="displayButton" style="display:none">Sow seed (5)</button>
+      <button onclick="sowSomething(document.getElementById('seed').value)" id="displayButton" style="display:none">Sow seed (5)</button>
       <p>Other Property</p>
       <div class="display">0 of nothing</div>
 

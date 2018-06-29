@@ -1,26 +1,33 @@
 
 let bankAccount = 100;
-let currentField;
+
 let previousFieldName = "";
 let cellInfo = [];
 
-let fieldNumber = 0;
+
+let fieldNumber = 1;
 
 function createId() {
     let fieldId = "Field_" + fieldNumber;
     ++fieldNumber;
     return fieldId;
-    console.log(fieldId);
 }
 
-//addclick-et rátesszük minden TD-re
-// document.getElementsByTagName("TD").addEventListener("click", function () {     selectField(fieldId); }, false);
+let cellsNumber = document.getElementsByTagName("TD");
 
-function addingListener() {
-    let listenObject = document.getElementsByTagName("TD");
-    listenObject.addEventListener("click", function () {     selectField(fieldId); }, false);
-    // ezt adtuk hozzá
-} 
+function createIdAttribute() {
+    let i = 0;
+    while (i < cellsNumber.length) {
+        let addId = document.createAttribute("ID");
+        cellsNumber[i].setAttributeNode(addId);
+        addId.value = createId();
+
+        let objectMaker = new FieldInfo_obj(addId.value, "empty");
+        cellInfo.push(objectMaker);
+
+        i++;
+    }
+}
 
 function moneyCheck() {
     if (bankAccount < 0) {
@@ -31,25 +38,31 @@ function moneyCheck() {
 
 function showMoney() {
     document.getElementById("account").innerHTML = bankAccount;
-    addingListener();
+    //  addingListener();
 }
 
 function err() {
     alert("You have run out of money and lost the game. Nice work, moron.");
 }
 
-function fieldInfo_obj(p_fieldId, p_state) {
-    this.id = p_fieldId;
-    this.state = p_state;
+let currentFieldId = "";
+
+function addingListener() {
+    let i;
+    for (i = 0; i < cellsNumber.length; i++) {
+        cellsNumber[i].addEventListener("click", function () {
+            currentFieldId = this.id;
+            selectField(currentFieldId);
+        }, false);
+        cellsNumber[i].classList.add("cursor");
+    }
+    console.log(cellInfo);
 }
 
-let objectMaker = new fieldInfo_obj(fieldId, "empty");
-cellInfo.push(objectMaker);
-
-
-
-
-
+function FieldInfo_obj(p_fieldId, p_state) {
+    this.marker = p_fieldId;
+    this.state = p_state;
+}
 
 function selectField(p_fieldId) {
     if (previousFieldName != "") {
@@ -59,9 +72,11 @@ function selectField(p_fieldId) {
     selectThisField.classList.add("fieldBorder");
     selectThisField.style.width = "96px";
     selectThisField.style.height = "96px";
+    currentFieldId = p_fieldId;
     previousFieldName = p_fieldId;
-    developField();
 
+
+    // developField();
 }
 
 function deSelectField(p_fieldName) {
@@ -70,7 +85,28 @@ function deSelectField(p_fieldName) {
     selectThisField.style.height = "100px";
     selectThisField.classList.remove("fieldBorder");
 }
+
+function newField(p_currentFieldId) {
+    // pénz levonása
+    bankAccount = bankAccount - 20;
+    //ellenőrizzük a pénzt
+    moneyCheck();
+    //ha megvan, kiiratjuk
+    showMoney();
+    //új mező stílusformázása
+    document.getElementById(p_currentFieldId).classList.add("fieldsize", "grassfield");
+    // kezdőállapotot elmentünk a state objektumba !! A tömb megfelelő objektumának a mezőjére hivatkozni
+    let idToMarker = p_currentFieldId.slice(6, 8);
+    Number(idToMarker);
+    idToMarker--;
+    console.log(idToMarker);
+    cellsNumber[idToMarker].state = "grass";
+    console.log(cellsNumber[idToMarker].state);
+}
+
 /*
+
+
 function developField() {
     document.getElementById("displayButton").style.display = "block";
     document.getElementById("seed").style.display = "block";
@@ -104,39 +140,7 @@ function sowSeed(fName) {
         }
     }
 }
-
-
-
-function createIdAttribute(fieldId, fieldElement) {
-    let addId = document.createAttribute("ID");
-    addId.value = fieldId;
-    fieldElement.setAttributeNode(addId);
-}
-
-
-function newField() {
-    // pénz levonása
-    bankAccount = bankAccount - 20;
-    //ellenőrizzük a pénzt
-    moneyCheck();
-    //ha megvan, kiiratjuk
-    showMoney();
-
-    //id-et létrehozzuk
-    let fieldId = createId();
-    createIdAttribute(fieldId, addField);
-
-    // itt kell bepusholni az objektumot egy tömbbe, amire hivatkozunk a fv végén
-    //új mező stílusformázása
-    addField.classList.add("fieldsize", "grassfield");
-
-
-
-    //kijelöljük az aktuális mezőt
-    selectField(fieldId);
-    // kezdőállapotot elmentünk a state objektumba !! A tömb megfelelő objektumának a mezőjére hivatkozni
-    state.fieldName = "empty";
-    console.log(state.fieldName);
-}
-
 */
+
+
+
