@@ -5,7 +5,7 @@ html, body {
     background-image: url("\Pictures/drysoil.jpg");
     background-size: cover;
     }
-
+    
 .board {
     position: absolute; 
     top: 50px;
@@ -29,7 +29,10 @@ td {
     height: 100px;
     width: 100px;
     position: relative;
-    float: left;
+    /* float: left; */
+}
+
+.cursor { cursor: pointer;
 }
 
 .grassfield {
@@ -53,12 +56,43 @@ td {
     border-bottom-left-radius: 20px;
 }
 
+#timer {
+    width: 140px;
+    height: 60px;
+    color: white;
+    background-color: red;
+    margin: auto;
+    position: absolute;
+    border-top-left-radius: 20px;
+    border-top-style: outset;
+    border-left-style: outset;
+    border-bottom-style: outset;
+    border-width: 1px;
+    border-color: darkgray;
+    text-align: center;
+    font-weight: bold;
+    vertical-align: bottom;
+    font-size: 20px;
+    
+}
+
+#timernumber {
+    display: inline-block;
+    margin-top: 10px;
+}
+
+#timertext {
+    font-size: 14px;
+}
+
 button {
     display: block;
     margin: auto;
     margin-top: 15px;
     margin-bottom: 15px;
     font-size: 12px;
+    border-radius: 8px;
+    width: 80%;
 }
 
 #displayButton {
@@ -77,31 +111,37 @@ button {
     text-align: right;
 }
 
-div p {
+.titles {
     text-align: center;
     color: gold;
     font-weight: bold;
-    
-}
-
-div p:nth-child(1) {
     margin-top: 10px;
     font-size: 18px;
-    margin-bottom: 3px;
+    margin-bottom: 3px;           
 }
 
-div p:nth-child(3) {
+
+.titledistance {
+    margin-top: 75px;
+}
+
+.smalltitles {
+    text-align: center;
+    color: gold;
+    font-weight: bold;
     margin-top: 3px;
     font-size: 14px;
 }
 
 select {
     margin: auto;
+    
 }
 
 .fieldBorder {
     border-style: dashed;
     border-width: 2px;
     border-color: brown;
+    
 }
 

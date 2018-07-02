@@ -1,9 +1,73 @@
+// timer code
+let score = "unknown";
+let rank = 1;
+function countdown() {
+    let min = 15;
+    let sec = 0;
+    let timeToDisplay = setInterval(cdowncode, 1000);
+    let test = "semmi";
+    function cdowncode() {
+        if (min === 0 && sec === 0) {
+            document.getElementById("timernumber").innerHTML = "0" + min + " : " + "0" + sec;
+            clearInterval(timeToDisplay);
+            alert("The time is over. Congratulation for finishing the game. Your score is " + score + ". Your rank is " + rank + ".");
+            location.reload();
+        }
+
+        if (min > 9 && sec > 9) {
+            document.getElementById("timernumber").innerHTML = min + " : " + sec;
+        }
+        if (min > 9 && sec < 10) {
+            document.getElementById("timernumber").innerHTML = min + " : " + "0" + sec;
+            console.log("t1");
+        }
+        if (min < 10 && sec > 9) {
+            document.getElementById("timernumber").innerHTML = "0" + min + " : " + sec;
+        }
+        if (min < 10 && sec < 10) {
+            document.getElementById("timernumber").innerHTML = "0" + min + " : " + "0" + sec;
+            console.log("t2");
+        }
+        if (sec === 0) {
+            min--;
+            sec = 59;
+        } else {
+            sec--;
+        }
+        console.log(sec);
+    }
+}
+
+
+
+/*    console.log(sec);
+ 
+
+    
+
+    
+    console.log(test);
+    if (sec < 10 && min > 9) {
+        document.getElementById("timer").innerHTML = min + " : " + "0" + sec;
+        test = "csakmásodperckevés";
+    }
+    console.log(test);
+     else {
+        document.getElementById("timer").innerHTML = min + " : " + sec;
+        test = "sok-sok";
+    }
+    console.log(test);
+  
+}
+}
+}
+
+*/
 
 let bankAccount = 100;
 
 let previousFieldName = "";
 let cellInfo = [];
-
 
 let fieldNumber = 1;
 
@@ -38,7 +102,6 @@ function moneyCheck() {
 
 function showMoney() {
     document.getElementById("account").innerHTML = bankAccount;
-    //  addingListener();
 }
 
 function err() {
