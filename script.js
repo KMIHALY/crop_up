@@ -2,7 +2,7 @@
 let score = "unknown";
 let rank = 1;
 function countdown() {
-    let min = 15;
+    let min = 50;
     let sec = 0;
     let timeToDisplay = setInterval(cdowncode, 1000);
     let test = "semmi";
@@ -19,14 +19,12 @@ function countdown() {
         }
         if (min > 9 && sec < 10) {
             document.getElementById("timernumber").innerHTML = min + " : " + "0" + sec;
-            console.log("t1");
         }
         if (min < 10 && sec > 9) {
             document.getElementById("timernumber").innerHTML = "0" + min + " : " + sec;
         }
         if (min < 10 && sec < 10) {
             document.getElementById("timernumber").innerHTML = "0" + min + " : " + "0" + sec;
-            console.log("t2");
         }
         if (sec === 0) {
             min--;
@@ -34,35 +32,8 @@ function countdown() {
         } else {
             sec--;
         }
-        console.log(sec);
     }
 }
-
-
-
-/*    console.log(sec);
- 
-
-    
-
-    
-    console.log(test);
-    if (sec < 10 && min > 9) {
-        document.getElementById("timer").innerHTML = min + " : " + "0" + sec;
-        test = "csakmásodperckevés";
-    }
-    console.log(test);
-     else {
-        document.getElementById("timer").innerHTML = min + " : " + sec;
-        test = "sok-sok";
-    }
-    console.log(test);
-  
-}
-}
-}
-
-*/
 
 let bankAccount = 100;
 
@@ -85,10 +56,8 @@ function createIdAttribute() {
         let addId = document.createAttribute("ID");
         cellsNumber[i].setAttributeNode(addId);
         addId.value = createId();
-
         let objectMaker = new FieldInfo_obj(addId.value, "empty");
         cellInfo.push(objectMaker);
-
         i++;
     }
 }
@@ -119,7 +88,6 @@ function addingListener() {
         }, false);
         cellsNumber[i].classList.add("cursor");
     }
-    console.log(cellInfo);
 }
 
 function FieldInfo_obj(p_fieldId, p_state) {
@@ -137,9 +105,6 @@ function selectField(p_fieldId) {
     selectThisField.style.height = "96px";
     currentFieldId = p_fieldId;
     previousFieldName = p_fieldId;
-
-
-    // developField();
 }
 
 function deSelectField(p_fieldName) {
@@ -148,6 +113,15 @@ function deSelectField(p_fieldName) {
     selectThisField.style.height = "100px";
     selectThisField.classList.remove("fieldBorder");
 }
+
+function makingIdToMarker(p_id) {
+    let idToMarker = p_id.slice(6, 8);
+    Number(idToMarker);
+    idToMarker--;
+    console.log(idToMarker);
+    return idToMarker;
+}
+
 
 function newField(p_currentFieldId) {
     // pénz levonása
@@ -159,25 +133,44 @@ function newField(p_currentFieldId) {
     //új mező stílusformázása
     document.getElementById(p_currentFieldId).classList.add("fieldsize", "grassfield");
     // kezdőállapotot elmentünk a state objektumba !! A tömb megfelelő objektumának a mezőjére hivatkozni
-    let idToMarker = p_currentFieldId.slice(6, 8);
-    Number(idToMarker);
-    idToMarker--;
-    console.log(idToMarker);
-    cellsNumber[idToMarker].state = "grass";
-    console.log(cellsNumber[idToMarker].state);
+    makingIdToMarker(p_currentFieldId);
+    cellsNumber[makingIdToMarker].state = "grass";
+    console.log(cellsNumber[makingIdToMarker].state);
+    developField();
 }
 
-/*
-
+function imgChanger(p_currentFieldId) {
+    document.getElementById(p_currentFieldId).classList.add("fieldsize", "grassfield");
+}
 
 function developField() {
     document.getElementById("displayButton").style.display = "block";
     document.getElementById("seed").style.display = "block";
+    if (bankAccount > 100) {
+        document.getElementById("displayOptionPotato").style.display = "block";
+    }
+    if (bankAccount > 120) {
+        document.getElementById("displayOptionCorn").style.display = "block";
+    }
+    if (bankAccount > 140) {
+        document.getElementById("displayOptionTomato").style.display = "block";
+    }
+    if (bankAccount > 160) {
+        document.getElementById("displayOptionMarijuana").style.display = "block";
+    }
+    if (bankAccount > 180) {
+        document.getElementById("displayOptionPoppy").style.display = "block";
+    }
+    if (bankAccount > 200) {
+        // document.getElementById("displayOptionCorn").style.display = "block"; 
+        // AUTOMATION
+    }
 }
+
 function sowSomething() {
     sowSeed(previousFieldName);
 }
-
+/*
 function imgChanger(fName) {
     if (state.fName = "empty") {
         document.getElementById(fName).style.backgroundImage = "url('\Pictures/growingwheat.png')";
@@ -188,7 +181,7 @@ function imgChanger(fName) {
     if (state.fName = "wheat") {
         document.getElementById(fName).style.backgroundImage = "url('\Pictures/growingwheat.png')";
     }
-}
+} */
 
 function sowSeed(fName) {
     if (state.fName === "empty") {
@@ -203,7 +196,7 @@ function sowSeed(fName) {
         }
     }
 }
-*/
+
 
 
 

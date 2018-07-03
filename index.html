@@ -14,14 +14,14 @@
 
   <div id="controlpanel">
     <div id="timer">
-      <span id = "timertext">remaining time</span><br>
-      <span id = "timernumber"></span>
+      <span id="timertext">remaining time</span>
+      <br>
+      <span id="timernumber"></span>
     </div>
     <p class="titles titledistance">Bank Account</p>
     <div class="display" id="account"></div>
     <p class="smalltitles">Golden Kitten Thaler</p>
-    <button onclick="
-    (function() {
+    <button onclick="(function() {
       if (currentFieldId === '') {
         currentFieldId = 'Field_1';
         newField(currentFieldId);
@@ -31,12 +31,11 @@
     })()">Buy and irrigate field (20)</button>
     <select id="seed" style="display:none">
       <option value="wheat" id="displayOptionWheat" style="display:block">Wheat</option>
-      <option value="corn" id="displayOptionCorn" style="display:none">Corn</option>
-      <option value="marijuana" id="displayOptionMarijuana" style="display:none">Marijuana</option>
-      <option value="poppy" id="displayOptionPoppy" style="display:none">Poppy</option>
       <option value="potato" id="displayOptionPotato" style="display:none">Potato</option>
+      <option value="corn" id="displayOptionCorn" style="display:none">Corn</option>
       <option value="tomato" id="displayOptionTomato" style="display:none">Tomato</option>
-
+      <option value="marijuana" id="displayOptionMarijuana" style="display:none">Marijuana</option>
+      <option value="poppy" id="displayOptionPoppy" style="display:none">Poppy</option> 
     </select>
     <button onclick="sowSomething(document.getElementById('seed').value)" id="displayButton" style="display:none">Sow seed (5)</button>
     <p class="titles">Other Property</p>
