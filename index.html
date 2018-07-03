@@ -22,12 +22,8 @@
     <div class="display" id="account"></div>
     <p class="smalltitles">Golden Kitten Thaler</p>
     <button onclick="(function() {
-      if (currentFieldId === '') {
-        currentFieldId = 'Field_1';
+        selectField(currentFieldId);
         newField(currentFieldId);
-      } else {
-      newField(currentFieldId);
-      }
     })()">Buy and irrigate field (20)</button>
     <select id="seed" style="display:none">
       <option value="wheat" id="displayOptionWheat" style="display:block">Wheat</option>
@@ -37,10 +33,9 @@
       <option value="marijuana" id="displayOptionMarijuana" style="display:none">Marijuana</option>
       <option value="poppy" id="displayOptionPoppy" style="display:none">Poppy</option> 
     </select>
-    <button onclick="sowSomething(document.getElementById('seed').value)" id="displayButton" style="display:none">Sow seed (5)</button>
-    <p class="titles">Other Property</p>
-    <div class="display">0 of nothing</div>
-
+    <button onclick="sowSomething(document.getElementById('seed').value, currentFieldId)" id="displayButton" style="display:none">Sow seed</button>
+    <button onclick="harvest(currentFieldId)" id="displayHarvest" style="display: none">Harvest and sell</button>
+    
   </div>
 
   <table id="table25" class="board">
