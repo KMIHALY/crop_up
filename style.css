@@ -14,7 +14,7 @@ html, body {
     border: 2px solid black;
 }
 
-.board td {
+#table25 td {
     background-image: url("\Pictures/soil_texture.jpg");
     background-size: 100px 100px;
     background-repeat: repeat;
