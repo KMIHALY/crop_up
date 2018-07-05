@@ -8,11 +8,25 @@
 
 </head>
 
-<body onload="showMoney(); createIdAttribute(); addingListener(); countdown(); priceAndProfit()">
-
+<body onload="showMoney(); createIdAttribute(); addingListener(); priceAndProfit()">
+  
   <!-- page content -->
+  <div id="welcomeDivID">
+  <p>Hello</p>
+  <p>My name is Mihaly, and this is my first game and also my first reference work. <br>
+      Please ignore the beauty and outfit of the game, it's about the mechanism and the skills (What skills? ^_^). <br>
+      If you have read the first sentences, you are proven to be committed to play with the game Crop Up! <br>
+      The rules are as follows:</p>
 
-  <div id="controlpanel">
+      <p>1. You have <!--  <span onbeforeunload="gamesTime()" id="gametime" ></span> -->5  minutes to get as much money as you can, by growing, harvesting and selling different plants. <br>
+      2. The more money you have on your bank account, the more profitable plant you can grow and harvest, but the growing time is longer.</p>
+      
+      <p>Your opponent is always yourself and the time. <br> Keep your eye on the countdown timer, choose the plants wisely and enjoy.</p>
+      
+     <p>Mihaly</p>
+     <button id="welcomeButton" onclick="welcome(); countdown(); controlOn()">Challenge accepted</button>
+</div>
+  <div id="controlpanel" style="display:none">
     <div id="timer">
       <span id="timertext">remaining time</span>
       <br>
