@@ -1,7 +1,7 @@
 html, body {
     margin: 0px 0px 0px 0px; 
     width: 504px;
-    min-width: 504px;
+    min-width: 520px;
     background-image: url("\Pictures/drysoil.jpg");
     background-size: cover;
     }
@@ -11,34 +11,25 @@ html, body {
     top: 50px;
     left: 50%;
     margin-left: -252px;
-    width: 500px;
-    height: 500px;
     border: 2px solid black;
 }
 
-td {
+.board td {
     background-image: url("\Pictures/soil_texture.jpg");
     background-size: 100px 100px;
     background-repeat: repeat;
-    width: 100px;
-    height: 100px;
-    
+    height: 102px;
+    width: 102px;
 }
 
 .fieldsize {
     height: 100px;
     width: 100px;
     position: relative;
-    /* float: left; */
 }
 
-.cursor { cursor: pointer;
-}
-
-.grassfield {
-    background-image: url("\Pictures/grass_texture.jpg");
-    background-size: cover;
-    cursor:pointer;
+.cursor { 
+    cursor: pointer;
 }
 
 #controlpanel {
@@ -133,6 +124,15 @@ button {
     font-size: 14px;
 }
 
+#tableOfPriceAndProfit {
+    color: white;
+    font-size: 14px;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 15px;
+    border-top: 2px solid gold;
+}
+
 select {
     margin: auto;
     
@@ -141,7 +141,6 @@ select {
 .fieldBorder {
     border-style: dashed;
     border-width: 2px;
-    border-color: brown;
-    
+    border-color: brown; 
 }
 

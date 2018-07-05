@@ -49,7 +49,7 @@ function createId() {
     return fieldId;
 }
 
-let cellsNumber = document.getElementsByTagName("TD");
+let cellsNumber = document.getElementById('table25').getElementsByTagName("TD");
 
 function createIdAttribute() {
     let i = 0;
@@ -57,10 +57,10 @@ function createIdAttribute() {
         let addId = document.createAttribute("ID");
         cellsNumber[i].setAttributeNode(addId);
         addId.value = createId();
-        let objectMaker = new FieldInfo_obj(addId.value, "empty");
-        cellInfo.push(objectMaker);
+        let objectField = new FieldInfo_obj(addId.value, "empty");
+        cellInfo.push(objectField);
         i++;
-        console.log(objectMaker);
+        console.log(objectField);
     }
 }
 
@@ -122,7 +122,6 @@ function makingIdToMarker(p_currentFieldId) {
     return idToMarker;
 }
 
-
 function newField(p_currentFieldId) {
     // pénz levonása
     bankAccount = bankAccount - 20;
@@ -131,9 +130,11 @@ function newField(p_currentFieldId) {
     //ha megvan, kiiratjuk
     showMoney();
     //új mező stílusformázása
-    document.getElementById(p_currentFieldId).classList.add("fieldsize", "grassfield");
+    //document.getElementById(p_currentFieldId).classList.add('fieldsize', 'grassfield');
+    document.getElementById(p_currentFieldId).style.backgroundImage = "url('Pictures/grass_texture.jpg')";
     // állapotot elmentjük a objektumba !! A tömb megfelelő objektumának a mezőjére hivatkozni
     cellsNumber[makingIdToMarker(p_currentFieldId)].state = "grass";
+    console.log(cellsNumber[makingIdToMarker(p_currentFieldId)].state);
     developField();
 }
 
@@ -152,22 +153,23 @@ function developField() {
 }
 
 function imgChanger(p_seedName, p_fieldId) {
-    if (p_seedName === "wheat") { document.getElementById(p_fieldId).style.backgroundImage = wheat.pic; };
-    if (p_seedName === "potato") { document.getElementById(p_fieldId).style.backgroundImage = potato.pic; };
-    if (p_seedName === "corn") { document.getElementById(p_fieldId).style.backgroundImage = corn.pic; };
-    if (p_seedName === "tomato") { document.getElementById(p_fieldId).style.backgroundImage = tomato.pic; };
-    if (p_seedName === "marijuana") { document.getElementById(p_fieldId).style.backgroundImage = marijuana.pic; };
-    if (p_seedName === "poppy") { document.getElementById(p_fieldId).style.backgroundImage = poppy.pic; };
+    if (p_seedName === "wheat") { document.getElementById(p_fieldId).style.backgroundImage = plantInfo[0].pic; };
+    if (p_seedName === "potato") { document.getElementById(p_fieldId).style.backgroundImage = plantInfo[1].pic; };
+    if (p_seedName === "corn") { document.getElementById(p_fieldId).style.backgroundImage = plantInfo[2].pic; };
+    if (p_seedName === "tomato") { document.getElementById(p_fieldId).style.backgroundImage = plantInfo[3].pic; };
+    if (p_seedName === "marijuana") { document.getElementById(p_fieldId).style.backgroundImage = plantInfo[4].pic; };
+    if (p_seedName === "poppy") { document.getElementById(p_fieldId).style.backgroundImage = plantInfo[5].pic; };
 }
+
 
 function moneyReduction(p_seedName) {
     let subtrahend;
-    if (p_seedName === "wheat") { subtrahend = wheat.sowingCost };
-    if (p_seedName === "potato") { subtrahend = potato.sowingCost; };
-    if (p_seedName === "corn") { subtrahend = corn.sowingCost; };
-    if (p_seedName === "tomato") { subtrahend = tomato.sowingCost; };
-    if (p_seedName === "marijuana") { subtrahend = marijuana.sowingCost; };
-    if (p_seedName === "poppy") { subtrahend = poppy.sowingCost; };
+    if (p_seedName === "wheat") { subtrahend = plantInfo[0].sowingCost };
+    if (p_seedName === "potato") { subtrahend = plantInfo[1].sowingCost; };
+    if (p_seedName === "corn") { subtrahend = plantInfo[2].sowingCost; };
+    if (p_seedName === "tomato") { subtrahend = plantInfo[3].sowingCost; };
+    if (p_seedName === "marijuana") { subtrahend = plantInfo[4].sowingCost; };
+    if (p_seedName === "poppy") { subtrahend = plantInfo[5].sowingCost; };
     bankAccount = bankAccount - subtrahend;
 }
 
@@ -195,53 +197,54 @@ function sowSomething(p_seedName, p_fieldId) {
     }
 }
 
-let wheat = {
-    growingPic: "url('\Pictures/growing_wheat.png')",
-    pic: "url('\Pictures/wheat.jpg')",
-    animation: "not yet",
-    sowingCost: 5,
-    harvestingIncome: 10,
-};
+function PlantInfo_obj(p_name, p_growingPic, p_pic, p_animation, p_sowingCost, p_harvestingIncome, p_ripeningTime) {
+    this.name = p_name;
+    this.growingPic = p_growingPic;
+    this.pic = p_pic;
+    this.animation = p_animation;
+    this.sowingCost = p_sowingCost;
+    this.harvestingIncome = p_harvestingIncome;
+    this.ripeningTime = p_ripeningTime;
+}
 
-let potato = {
-    growingPic: "url('\Pictures/growing_potato.png')",
-    pic: "url('\Pictures/potato.jpg')",
-    animation: "notyet",
-    sowingCost: 8,
-    harvestingIncome: 20,
-};
+let plantInfo = [];
 
-let corn = {
-    growingPic: "url('\Pictures/growing_corn.gif')",
-    pic: "url('\Pictures/corn.jpg')",
-    animation: "notyet",
-    sowingCost: 15,
-    harvestingIncome: 35,
-};
+function createPlants() {
+let objectPlant;
+objectPlant = new PlantInfo_obj("wheat", "url('\Pictures/growing_wheat.png')", "url('\Pictures/wheat.jpg')", "notyet", 5, 10, 10000, );
+plantInfo.push(objectPlant);
+objectPlant = new PlantInfo_obj("potato", "url('\Pictures/growing_potato.png')", "url('\Pictures/potato.jpg')", "notyet", 8, 20, 10000, );
+plantInfo.push(objectPlant);
+objectPlant = new PlantInfo_obj("corn", "url('\Pictures/growing_corn.gif')", "url('\Pictures/corn.jpg')", "notyet", 15, 35, 10000, );
+plantInfo.push(objectPlant);
+objectPlant = new PlantInfo_obj("tomato", "url('\Pictures/growing_tomato.gif')", "url('\Pictures/tomato.jpg')", "notyet", 20, 50, 10000, );
+plantInfo.push(objectPlant);
+objectPlant = new PlantInfo_obj("marijuana", "url('\Pictures/growing_marijuana.gif')", "url('\Pictures/marijuana.jpg')", "notyet", 30, 70, 10000, ); 
+plantInfo.push(objectPlant);
+objectPlant = new PlantInfo_obj('poppy', "url('\Pictures/growing_poppy.jpg')", "url('\Pictures/poppy.jpg')", "notyet", 20, 100, 10000, );
+plantInfo.push(objectPlant);
+}
 
-let tomato = {
-    growingPic: "url('\Pictures/growing_tomato.gif')",
-    pic: "url('\Pictures/tomato.jpg')",
-    animation: "notyet",
-    sowingCost: 20,
-    harvestingIncome: 50,
-};
+function priceAndProfit() {
+    createPlants();
+    document.getElementById('plWhe').innerHTML = plantInfo[0].name;
+    document.getElementById('plPot').innerHTML = plantInfo[1].name;
+    document.getElementById('plCor').innerHTML = plantInfo[2].name;
+    document.getElementById('plTom').innerHTML = plantInfo[3].name;
+    document.getElementById('plMar').innerHTML = plantInfo[4].name;
+    document.getElementById('plPop').innerHTML = plantInfo[5].name;
 
-let marijuana = {
-    growingPic: "url('\Pictures/growing_marijuana.gif')",
-    pic: "url('\Pictures/marijuana.jpg')",
-    animation: "notyet",
-    sowingCost: 30,
-    harvestingIncome: 70,
-};
+    document.getElementById('priWhe').innerHTML = plantInfo[0].sowingCost;
+    document.getElementById('priPot').innerHTML = plantInfo[1].sowingCost;
+    document.getElementById('priCor').innerHTML = plantInfo[2].sowingCost;
+    document.getElementById('priTom').innerHTML = plantInfo[3].sowingCost;
+    document.getElementById('priMar').innerHTML = plantInfo[4].sowingCost;
+    document.getElementById('priPop').innerHTML = plantInfo[5].sowingCost;
 
-let poppy = {
-    growingPic: "url('\Pictures/growing_poppy.jpg')",
-    pic: "url('\Pictures/poppy.jpg')",
-    animation: "notyet",
-    sowingCost: 20,
-    harvestingIncome: 100,
-};
-
-/* let plants = [];
- plants.push(wheat, potato, corn, tomato, marijuana, poppy); */
+    document.getElementById('proWhe').innerHTML = plantInfo[0].harvestingIncome;
+    document.getElementById('proPot').innerHTML = plantInfo[1].harvestingIncome;
+    document.getElementById('proCor').innerHTML = plantInfo[2].harvestingIncome;
+    document.getElementById('proTom').innerHTML = plantInfo[3].harvestingIncome;
+    document.getElementById('proMar').innerHTML = plantInfo[4].harvestingIncome;
+    document.getElementById('proPop').innerHTML = plantInfo[5].harvestingIncome;
+}
