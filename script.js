@@ -1,7 +1,8 @@
 'use strict'
 // timer code
 let score = "unknown";
-let rank = 1;
+let rank = 'newbie';
+
 function countdown() {
     let min = 10;
     let sec = 5;
@@ -11,7 +12,7 @@ function countdown() {
         if (min === 0 && sec === 0) {
             document.getElementById("timernumber").innerHTML = "0" + min + " : " + "0" + sec;
             clearInterval(timeToDisplay);
-            alert("The time is over. Congratulation for finishing the game. Your score is " + score + ". Your rank is " + rank + ".");
+            alert("The time is over. Congratulation for finishing the game. In your bank account you've managed to collect " + bankAccount + " GKT. Your rank is" + rank + ".");
             location.reload();
         }
 
@@ -36,7 +37,7 @@ function countdown() {
     }
 }
 
-let bankAccount = 140;
+let bankAccount = 300;
 
 let previousFieldName = "";
 let cellInfo = [];
@@ -54,6 +55,7 @@ let cellsNumber = document.getElementById('table25').getElementsByTagName("TD");
 function FieldInfo_obj(p_fieldId, p_state) {
     this.marker = p_fieldId;
     this.state = p_state;
+    console.log(p_state);
 }
 
 function createIdAttribute() {
@@ -97,6 +99,7 @@ function addingListener() {
 }
 
 function selectField(p_fieldId) {
+
     if (previousFieldName != "") {
         deSelectField(previousFieldName);
     }
@@ -106,6 +109,7 @@ function selectField(p_fieldId) {
     selectThisField.style.height = "96px";
     currentFieldId = p_fieldId;
     previousFieldName = p_fieldId;
+    console.log(cellInfo[makingIdToMarker(p_fieldId)].state);
 }
 
 function deSelectField(p_fieldName) {
@@ -117,6 +121,7 @@ function deSelectField(p_fieldName) {
 
 function makingIdToMarker(p_currentFieldId) {
     let idToMarker = Number(p_currentFieldId.slice(6, 8));
+    console.log(idToMarker);
     idToMarker--;
     return idToMarker;
 }
@@ -130,13 +135,13 @@ function newField(p_currentFieldId) {
     showMoney();
     // állapotot elmentjük a objektumba !! A tömb megfelelő objektumának a mezőjére hivatkozni
     makeItGrass(p_currentFieldId);
-    console.log(cellsNumber[makingIdToMarker(p_currentFieldId)].state);
+    console.log(cellInfo[makingIdToMarker(p_currentFieldId)].state);
     developField();
 }
 
 function makeItGrass(p_currentFieldId) {
     document.getElementById(p_currentFieldId).style.backgroundImage = "url('Pictures/grass_texture.jpg')";
-    cellsNumber[makingIdToMarker(p_currentFieldId)].state = "grass";
+    cellInfo[makingIdToMarker(p_currentFieldId)].state = "grass";
 }
 
 function developField() {
@@ -168,10 +173,6 @@ function developField() {
     }
 }
 
-
-
-
-
 function moneyReduction(p_seedName) {
     let subtrahend;
     if (p_seedName === "wheat") { subtrahend = plantInfo[0].sowingCost };
@@ -185,44 +186,35 @@ function moneyReduction(p_seedName) {
 
 function makeItPlant(p_seedName, p_fieldId) {
     document.getElementById("displayHarvest").style.display = "block";
-    if (p_seedName === "wheat") { 
-        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[0].pic; 
-        cellsNumber[makingIdToMarker(p_fieldId)].state = 'wheat';
+    if (p_seedName === "wheat") {
+        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[0].pic;
+        cellInfo[makingIdToMarker(p_fieldId)].state = 'wheat';
     };
-    if (p_seedName === "potato") { 
-        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[1].pic; 
-        cellsNumber[makingIdToMarker(p_fieldId)].state = 'potato';
+    if (p_seedName === "potato") {
+        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[1].pic;
+        cellInfo[makingIdToMarker(p_fieldId)].state = 'potato';
     };
-    if (p_seedName === "corn") { 
-        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[2].pic; 
-        cellsNumber[makingIdToMarker(p_fieldId)].state = 'corn';
+    if (p_seedName === "corn") {
+        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[2].pic;
+        cellInfo[makingIdToMarker(p_fieldId)].state = 'corn';
     };
-    if (p_seedName === "tomato") { 
-        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[3].pic; 
-        cellsNumber[makingIdToMarker(p_fieldId)].state = 'tomato';
+    if (p_seedName === "tomato") {
+        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[3].pic;
+        cellInfo[makingIdToMarker(p_fieldId)].state = 'tomato';
     };
-    if (p_seedName === "marijuana") { 
-        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[4].pic; 
-        cellsNumber[makingIdToMarker(p_fieldId)].state = 'marijuana';
+    if (p_seedName === "marijuana") {
+        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[4].pic;
+        cellInfo[makingIdToMarker(p_fieldId)].state = 'marijuana';
     };
-    if (p_seedName === "poppy") { 
-        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[5].pic; 
-        cellsNumber[makingIdToMarker(p_fieldId)].state = 'poppy';
+    if (p_seedName === "poppy") {
+        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[5].pic;
+        cellInfo[makingIdToMarker(p_fieldId)].state = 'poppy';
     };
 }
 
-/* function stateChanger(p_seedName, p_fieldId) {
-    
-    if (p_seedName === "wheat") {  };
-    if (p_seedName === "potato") {  };
-    if (p_seedName === "corn") {  };
-    if (p_seedName === "tomato") {  };
-    if (p_seedName === "marijuana") {  };
-    if (p_seedName === "poppy") {  };
-} */
-
 function sowSomething(p_seedName, p_fieldId) {
-    if (cellsNumber[makingIdToMarker(p_fieldId)].state === "grass") {
+    if (cellInfo[makingIdToMarker(p_fieldId)].state === "grass") {
+
         moneyReduction(p_seedName);
         moneyCheck();
         showMoney();
@@ -230,14 +222,35 @@ function sowSomething(p_seedName, p_fieldId) {
         setTimeout(
             function () {
                 makeItPlant(p_seedName, p_fieldId);
-    //            imgChanger(p_seedName, p_fieldId);
-   //             stateChanger(p_seedName, p_fieldId);
             },
-            4000);
+            waitingTime(p_seedName));
 
     } else {
         alert("Choose an irrigated field or buy and irrigate a new one.");
     }
+}
+
+function waitingTime(p_seedName) {
+    let ripeTime;
+    if (p_seedName === "wheat") {
+        ripeTime = plantInfo[0].ripeningTime;
+    }
+    if (p_seedName === "potato") {
+        ripeTime = plantInfo[1].ripeningTime;
+    }
+    if (p_seedName === "corn") {
+        ripeTime = plantInfo[2].ripeningTime;
+    }
+    if (p_seedName === "tomato") {
+        ripeTime = plantInfo[3].ripeningTime;
+    }
+    if (p_seedName === "marijuana") {
+        ripeTime = plantInfo[4].ripeningTime;
+    }
+    if (p_seedName === "poppy") {
+        ripeTime = plantInfo[5].ripeningTime;
+    }
+    return(ripeTime);
 }
 
 function PlantInfo_obj(p_name, p_growingPic, p_pic, p_animation, p_sowingCost, p_harvestingIncome, p_ripeningTime) {
@@ -256,15 +269,15 @@ function createPlants() {
     let objectPlant;
     objectPlant = new PlantInfo_obj("wheat", "url('\Pictures/growing_wheat.png')", "url('\Pictures/wheat.jpg')", "notyet", 5, 10, 10000, );
     plantInfo.push(objectPlant);
-    objectPlant = new PlantInfo_obj("potato", "url('\Pictures/growing_potato.png')", "url('\Pictures/potato.jpg')", "notyet", 8, 20, 10000, );
+    objectPlant = new PlantInfo_obj("potato", "url('\Pictures/growing_potato.png')", "url('\Pictures/potato.jpg')", "notyet", 8, 20, 13000, );
     plantInfo.push(objectPlant);
-    objectPlant = new PlantInfo_obj("corn", "url('\Pictures/growing_corn.gif')", "url('\Pictures/corn.jpg')", "notyet", 15, 35, 10000, );
+    objectPlant = new PlantInfo_obj("corn", "url('\Pictures/growing_corn.gif')", "url('\Pictures/corn.jpg')", "notyet", 15, 35, 18000, );
     plantInfo.push(objectPlant);
-    objectPlant = new PlantInfo_obj("tomato", "url('\Pictures/growing_tomato.gif')", "url('\Pictures/tomato.jpg')", "notyet", 20, 50, 10000, );
+    objectPlant = new PlantInfo_obj("tomato", "url('\Pictures/growing_tomato.gif')", "url('\Pictures/tomato.jpg')", "notyet", 20, 50, 20000, );
     plantInfo.push(objectPlant);
-    objectPlant = new PlantInfo_obj("marijuana", "url('\Pictures/growing_marijuana.gif')", "url('\Pictures/marijuana.jpg')", "notyet", 30, 70, 10000, );
+    objectPlant = new PlantInfo_obj("marijuana", "url('\Pictures/growing_marijuana.gif')", "url('\Pictures/marijuana.jpg')", "notyet", 30, 70, 25000, );
     plantInfo.push(objectPlant);
-    objectPlant = new PlantInfo_obj('poppy', "url('\Pictures/growing_poppy.jpg')", "url('\Pictures/poppy.jpg')", "notyet", 20, 100, 10000, );
+    objectPlant = new PlantInfo_obj('poppy', "url('\Pictures/growing_poppy.jpg')", "url('\Pictures/poppy.jpg')", "notyet", 20, 100, 30000, );
     plantInfo.push(objectPlant);
 }
 
@@ -293,28 +306,34 @@ function priceAndProfit() {
 }
 
 function harvest(p_currentFieldId) {
-    let addend = 0;
-    if (cellsNumber[makingIdToMarker(p_currentFieldId)].state === 'wheat') {
-        addend = plantInfo[0].harvestingIncome;
+    console.log(p_currentFieldId);
+    console.log(cellInfo[makingIdToMarker(p_currentFieldId)].state);
+    if (cellInfo[makingIdToMarker(p_currentFieldId)].state != 'grass' && cellInfo[makingIdToMarker(p_currentFieldId)].state != 'empty') {
+        let addend = 0;
+        if (cellInfo[makingIdToMarker(p_currentFieldId)].state === 'wheat') {
+            addend = plantInfo[0].harvestingIncome;
+        }
+        if (cellInfo[makingIdToMarker(p_currentFieldId)].state === 'potato') {
+            addend = plantInfo[1].harvestingIncome;
+        }
+        if (cellInfo[makingIdToMarker(p_currentFieldId)].state === 'corn') {
+            addend = plantInfo[2].harvestingIncome;
+        }
+        if (cellInfo[makingIdToMarker(p_currentFieldId)].state === 'tomato') {
+            addend = plantInfo[3].harvestingIncome;
+        }
+        if (cellInfo[makingIdToMarker(p_currentFieldId)].state === 'marijuana') {
+            addend = plantInfo[4].harvestingIncome;
+        }
+        if (cellInfo[makingIdToMarker(p_currentFieldId)].state === 'poppy') {
+            addend = plantInfo[5].harvestingIncome;
+        }
+        makeItGrass(p_currentFieldId);
+        console.log(cellInfo[makingIdToMarker(p_currentFieldId)].state);
+        bankAccount = bankAccount + addend;
+        moneyCheck();
+        showMoney();
+    } else {
+        alert("Sow something before trying to harvest.");
     }
-    if (cellsNumber[makingIdToMarker(p_currentFieldId)].state === 'potato') {
-        addend = plantInfo[1].harvestingIncome;
-    }
-    if (cellsNumber[makingIdToMarker(p_currentFieldId)].state === 'corn') {
-        addend = plantInfo[2].harvestingIncome;
-    }
-    if (cellsNumber[makingIdToMarker(p_currentFieldId)].state === 'tomato') {
-        addend = plantInfo[3].harvestingIncome;
-    }
-    if (cellsNumber[makingIdToMarker(p_currentFieldId)].state === 'marijuana') {
-        addend = plantInfo[4].harvestingIncome;
-    }
-    if (cellsNumber[makingIdToMarker(p_currentFieldId)].state === 'poppy') {
-        addend = plantInfo[5].harvestingIncome;
-    }
-    makeItGrass(p_currentFieldId);
-    console.log(cellsNumber[makingIdToMarker(p_currentFieldId)].state);
-    bankAccount = bankAccount + addend;
-    moneyCheck();
-    showMoney();
 }
