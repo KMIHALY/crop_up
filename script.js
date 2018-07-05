@@ -57,6 +57,7 @@ let previousFieldName = "";
 let cellInfo = [];
 
 let fieldNumber = 1;
+let stopVar = true;
 
 function createId() {
     let fieldId = "Field_" + fieldNumber;
@@ -80,13 +81,6 @@ function createIdAttribute() {
         let objectField = new FieldInfo_obj(addId.value, "empty");
         cellInfo.push(objectField);
         i++;
-    }
-}
-
-function moneyCheck() {
-    if (bankAccount < 0) {
-        err();
-        //location.reload();
     }
 }
 
@@ -139,21 +133,33 @@ function makingIdToMarker(p_currentFieldId) {
 }
 
 function newField(p_currentFieldId) {
-    // pénz levonása
-    bankAccount = bankAccount - 20;
-    //ellenőrizzük a pénzt
-    moneyCheck();
-    //ha megvan, kiiratjuk
-    showMoney();
-    // állapotot elmentjük a objektumba !! A tömb megfelelő objektumának a mezőjére hivatkozni
-    makeItGrass(p_currentFieldId);
-    document.getElementById("pppWheat").style.display = "table-row";
-    developField();
+    if (cellInfo[makingIdToMarker(p_currentFieldId)].state === 'empty') {
+        console.log(cellInfo[makingIdToMarker(p_currentFieldId)].state);
+        // pénz ellenőrzése 
+        if (bankAccount >= 20) {
+            stopVar = true;
+            // levonása
+            bankAccount = bankAccount - 20;
+            //ha megvan, kiiratjuk
+            showMoney();
+            // állapotot elmentjük a objektumba és a képét kicseréljük
+            makeItGrass(p_currentFieldId);
+            //megjelenítjük az első növényt
+            document.getElementById("pppWheat").style.display = "table-row";
+            //megnézzük mit vethetünk
+            developField();
+        } else {
+            err();
+        }
+    } else {
+        alert("You have already bought this field.");
+    }
 }
 
 function makeItGrass(p_currentFieldId) {
     document.getElementById(p_currentFieldId).style.backgroundImage = "url('Pictures/grass_texture.jpg')";
     cellInfo[makingIdToMarker(p_currentFieldId)].state = "grass";
+    console.log(cellInfo[makingIdToMarker(p_currentFieldId)].state);
 }
 
 function developField() {
@@ -192,7 +198,13 @@ function moneyReduction(p_seedName) {
     if (p_seedName === "tomato") { subtrahend = plantInfo[3].sowingCost; };
     if (p_seedName === "marijuana") { subtrahend = plantInfo[4].sowingCost; };
     if (p_seedName === "poppy") { subtrahend = plantInfo[5].sowingCost; };
-    bankAccount = bankAccount - subtrahend;
+    if (subtrahend <= bankAccount) {
+        bankAccount = bankAccount - subtrahend;
+    } else {
+        err();
+        stopVar = false;
+        console.log(stopVar);
+    }
 }
 
 function makeItPlant(p_seedName, p_fieldId) {
@@ -225,16 +237,17 @@ function makeItPlant(p_seedName, p_fieldId) {
 
 function sowSomething(p_seedName, p_fieldId) {
     if (cellInfo[makingIdToMarker(p_fieldId)].state === "grass") {
-
+        //ide kell beépíteni az animációhoz tartozó állapotot és a blokkolót, h ne lehessen többet vetni egy helyre
         moneyReduction(p_seedName);
-        moneyCheck();
-        showMoney();
-
-        setTimeout(
-            function () {
-                makeItPlant(p_seedName, p_fieldId);
-            },
-            waitingTime(p_seedName));
+        if (stopVar === true) {
+            console.log(stopVar);
+            showMoney();
+            setTimeout(
+                function () {
+                    makeItPlant(p_seedName, p_fieldId);
+                },
+                waitingTime(p_seedName));
+        } 
 
     } else {
         alert("Choose an irrigated field or buy and irrigate a new one.");
@@ -340,7 +353,6 @@ function harvest(p_currentFieldId) {
         }
         makeItGrass(p_currentFieldId);
         bankAccount = bankAccount + addend;
-        moneyCheck();
         showMoney();
         developField();
     } else {

@@ -20,6 +20,8 @@ html, body {
 
 #welcomeButton {
     width: fit-content;
+    font-weight: bold;
+    font-size: 14px;
 }
 
 .board {
