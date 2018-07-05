@@ -3,8 +3,8 @@
 let score = "unknown";
 let rank = 1;
 function countdown() {
-    let min = 30;
-    let sec = 0;
+    let min = 10;
+    let sec = 5;
     let timeToDisplay = setInterval(cdowncode, 1000);
 
     function cdowncode() {
@@ -128,12 +128,9 @@ function newField(p_currentFieldId) {
     moneyCheck();
     //ha megvan, kiiratjuk
     showMoney();
-    //új mező stílusformázása
-    //document.getElementById(p_currentFieldId).classList.add('fieldsize', 'grassfield');
-  //  document.getElementById(p_currentFieldId).style.backgroundImage = "url('Pictures/grass_texture.jpg')";
     // állapotot elmentjük a objektumba !! A tömb megfelelő objektumának a mezőjére hivatkozni
-   // cellsNumber[makingIdToMarker(p_currentFieldId)].state = "grass";
-   makeItGrass(p_currentFieldId);
+    makeItGrass(p_currentFieldId);
+    console.log(cellsNumber[makingIdToMarker(p_currentFieldId)].state);
     developField();
 }
 
@@ -145,26 +142,26 @@ function makeItGrass(p_currentFieldId) {
 function developField() {
     document.getElementById("displayButton").style.display = "block";
     document.getElementById("seed").style.display = "block";
-    if (bankAccount > 100) { 
-        document.getElementById("displayOptionPotato").style.display = "block"; 
-        document.getElementById("pppWheat").style.display = "table-row"; 
-        document.getElementById("pppPotato").style.display = "table-row"; 
+    if (bankAccount > 100) {
+        document.getElementById("displayOptionPotato").style.display = "block";
+        document.getElementById("pppWheat").style.display = "table-row";
+        document.getElementById("pppPotato").style.display = "table-row";
     }
-    if (bankAccount > 120) { 
-        document.getElementById("displayOptionCorn").style.display = "block"; 
-        document.getElementById("pppCorn").style.display = "table-row"; 
-}
-    if (bankAccount > 140) { 
-        document.getElementById("displayOptionTomato").style.display = "block"; 
-        document.getElementById("pppTomato").style.display = "table-row"; 
+    if (bankAccount > 120) {
+        document.getElementById("displayOptionCorn").style.display = "block";
+        document.getElementById("pppCorn").style.display = "table-row";
     }
-    if (bankAccount > 160) { 
-        document.getElementById("displayOptionMarijuana").style.display = "block"; 
-        document.getElementById("pppMarijuana").style.display = "table-row"; 
+    if (bankAccount > 140) {
+        document.getElementById("displayOptionTomato").style.display = "block";
+        document.getElementById("pppTomato").style.display = "table-row";
     }
-    if (bankAccount > 180) { 
-        document.getElementById("displayOptionPoppy").style.display = "block"; 
-        document.getElementById("pppPoppy").style.display = "table-row"; 
+    if (bankAccount > 160) {
+        document.getElementById("displayOptionMarijuana").style.display = "block";
+        document.getElementById("pppMarijuana").style.display = "table-row";
+    }
+    if (bankAccount > 180) {
+        document.getElementById("displayOptionPoppy").style.display = "block";
+        document.getElementById("pppPoppy").style.display = "table-row";
     }
     if (bankAccount > 200) {
         // AUTOMATION
@@ -172,14 +169,7 @@ function developField() {
 }
 
 
-function imgChanger(p_seedName, p_fieldId) {
-    if (p_seedName === "wheat") { document.getElementById(p_fieldId).style.backgroundImage = plantInfo[0].pic; };
-    if (p_seedName === "potato") { document.getElementById(p_fieldId).style.backgroundImage = plantInfo[1].pic; };
-    if (p_seedName === "corn") { document.getElementById(p_fieldId).style.backgroundImage = plantInfo[2].pic; };
-    if (p_seedName === "tomato") { document.getElementById(p_fieldId).style.backgroundImage = plantInfo[3].pic; };
-    if (p_seedName === "marijuana") { document.getElementById(p_fieldId).style.backgroundImage = plantInfo[4].pic; };
-    if (p_seedName === "poppy") { document.getElementById(p_fieldId).style.backgroundImage = plantInfo[5].pic; };
-}
+
 
 
 function moneyReduction(p_seedName) {
@@ -193,25 +183,55 @@ function moneyReduction(p_seedName) {
     bankAccount = bankAccount - subtrahend;
 }
 
-function stateChanger(p_seedName, p_fieldId) {
+function makeItPlant(p_seedName, p_fieldId) {
     document.getElementById("displayHarvest").style.display = "block";
-    if (p_seedName === "wheat") { cellsNumber[makingIdToMarker(p_fieldId)].state = 'wheat'; };
-    if (p_seedName === "potato") { cellsNumber[makingIdToMarker(p_fieldId)].state = 'potato'; };
-    if (p_seedName === "corn") { cellsNumber[makingIdToMarker(p_fieldId)].state = 'corn'; };
-    if (p_seedName === "tomato") { cellsNumber[makingIdToMarker(p_fieldId)].state = 'tomato'; };
-    if (p_seedName === "marijuana") { cellsNumber[makingIdToMarker(p_fieldId)].state = 'marijuana'; };
-    if (p_seedName === "poppy") { cellsNumber[makingIdToMarker(p_fieldId)].state = 'poppy'; };
+    if (p_seedName === "wheat") { 
+        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[0].pic; 
+        cellsNumber[makingIdToMarker(p_fieldId)].state = 'wheat';
+    };
+    if (p_seedName === "potato") { 
+        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[1].pic; 
+        cellsNumber[makingIdToMarker(p_fieldId)].state = 'potato';
+    };
+    if (p_seedName === "corn") { 
+        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[2].pic; 
+        cellsNumber[makingIdToMarker(p_fieldId)].state = 'corn';
+    };
+    if (p_seedName === "tomato") { 
+        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[3].pic; 
+        cellsNumber[makingIdToMarker(p_fieldId)].state = 'tomato';
+    };
+    if (p_seedName === "marijuana") { 
+        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[4].pic; 
+        cellsNumber[makingIdToMarker(p_fieldId)].state = 'marijuana';
+    };
+    if (p_seedName === "poppy") { 
+        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[5].pic; 
+        cellsNumber[makingIdToMarker(p_fieldId)].state = 'poppy';
+    };
 }
+
+/* function stateChanger(p_seedName, p_fieldId) {
+    
+    if (p_seedName === "wheat") {  };
+    if (p_seedName === "potato") {  };
+    if (p_seedName === "corn") {  };
+    if (p_seedName === "tomato") {  };
+    if (p_seedName === "marijuana") {  };
+    if (p_seedName === "poppy") {  };
+} */
 
 function sowSomething(p_seedName, p_fieldId) {
     if (cellsNumber[makingIdToMarker(p_fieldId)].state === "grass") {
         moneyReduction(p_seedName);
         moneyCheck();
         showMoney();
+
         setTimeout(
             function () {
-                imgChanger(p_seedName, p_fieldId);
-                stateChanger(p_seedName, p_fieldId);
+                makeItPlant(p_seedName, p_fieldId);
+    //            imgChanger(p_seedName, p_fieldId);
+   //             stateChanger(p_seedName, p_fieldId);
             },
             4000);
 
@@ -276,7 +296,7 @@ function harvest(p_currentFieldId) {
     let addend = 0;
     if (cellsNumber[makingIdToMarker(p_currentFieldId)].state === 'wheat') {
         addend = plantInfo[0].harvestingIncome;
-            }
+    }
     if (cellsNumber[makingIdToMarker(p_currentFieldId)].state === 'potato') {
         addend = plantInfo[1].harvestingIncome;
     }
