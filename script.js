@@ -37,7 +37,7 @@ function countdown() {
     }
 }
 
-let bankAccount = 300;
+let bankAccount = 100;
 
 let previousFieldName = "";
 let cellInfo = [];
