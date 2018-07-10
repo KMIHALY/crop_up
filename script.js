@@ -13,8 +13,10 @@ function controlOn() {
 let score = "unknown";
 let rank = 'newbie';
 
+let min;
+
 function countdown() {
-    let min = 5;
+
     let sec = 0;
     let timeToDisplay = setInterval(cdowncode, 1000);
 
@@ -47,8 +49,11 @@ function countdown() {
     }
 }
 
-function gamesTime() {
-    document.getElementById('gametime').innerHTML = min;
+
+
+
+function showTime() {
+    min = Number(document.getElementById('gametime').value);
 }
 
 let bankAccount = 100;
@@ -57,7 +62,7 @@ let previousFieldName = "";
 let cellInfo = [];
 
 let fieldNumber = 1;
-let stopVar = true;
+//let stopVar = true;
 
 function createId() {
     let fieldId = "Field_" + fieldNumber;
@@ -137,7 +142,7 @@ function newField(p_currentFieldId) {
         console.log(cellInfo[makingIdToMarker(p_currentFieldId)].state);
         // pénz ellenőrzése 
         if (bankAccount >= 20) {
-            stopVar = true;
+            // stopVar = true;
             // levonása
             bankAccount = bankAccount - 20;
             //ha megvan, kiiratjuk
@@ -190,25 +195,25 @@ function developField() {
     }
 }
 
-function moneyReduction(p_seedName) {
-    let subtrahend;
+let subtrahend;
+function subtrahendCalculation(p_seedName) {
     if (p_seedName === "wheat") { subtrahend = plantInfo[0].sowingCost };
     if (p_seedName === "potato") { subtrahend = plantInfo[1].sowingCost; };
     if (p_seedName === "corn") { subtrahend = plantInfo[2].sowingCost; };
     if (p_seedName === "tomato") { subtrahend = plantInfo[3].sowingCost; };
     if (p_seedName === "marijuana") { subtrahend = plantInfo[4].sowingCost; };
     if (p_seedName === "poppy") { subtrahend = plantInfo[5].sowingCost; };
-    if (subtrahend <= bankAccount) {
-        bankAccount = bankAccount - subtrahend;
-    } else {
-        err();
-        stopVar = false;
-        console.log(stopVar);
-    }
+
+    //if (subtrahend <= bankAccount) {
+
+    //  } else {
+    //    err();
+    //  stopVar = false;
+    //   console.log(stopVar);
+    //}
 }
 
 function makeItPlant(p_seedName, p_fieldId) {
-    document.getElementById("displayHarvest").style.display = "block";
     if (p_seedName === "wheat") {
         document.getElementById(p_fieldId).style.backgroundImage = plantInfo[0].pic;
         cellInfo[makingIdToMarker(p_fieldId)].state = 'wheat';
@@ -235,20 +240,51 @@ function makeItPlant(p_seedName, p_fieldId) {
     };
 }
 
+function makeItGrowingPlant(p_seedName, p_fieldId) {
+
+    document.getElementById("displayHarvest").style.display = "block";
+    if (p_seedName === "wheat") {
+        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[0].growingPic;
+        cellInfo[makingIdToMarker(p_fieldId)].state = 'growing';
+    };
+    if (p_seedName === "potato") {
+        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[1].growingPic;
+        cellInfo[makingIdToMarker(p_fieldId)].state = 'growing';
+    };
+    if (p_seedName === "corn") {
+        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[2].growingPic;
+        cellInfo[makingIdToMarker(p_fieldId)].state = 'growing';
+    };
+    if (p_seedName === "tomato") {
+        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[3].growingPic;
+        cellInfo[makingIdToMarker(p_fieldId)].state = 'growing';
+    };
+    if (p_seedName === "marijuana") {
+        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[4].growingPic;
+        cellInfo[makingIdToMarker(p_fieldId)].state = 'growing';
+    };
+    if (p_seedName === "poppy") {
+        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[5].growingPic;
+        cellInfo[makingIdToMarker(p_fieldId)].state = 'growing';
+    };
+    document.getElementById(p_fieldId).style.backgroundImage += ", " + "url('Pictures/grass_texture.jpg')";
+}
+
 function sowSomething(p_seedName, p_fieldId) {
     if (cellInfo[makingIdToMarker(p_fieldId)].state === "grass") {
-        //ide kell beépíteni az animációhoz tartozó állapotot és a blokkolót, h ne lehessen többet vetni egy helyre
-        moneyReduction(p_seedName);
-        if (stopVar === true) {
-            console.log(stopVar);
+        subtrahendCalculation(p_seedName);
+        if (subtrahend <= bankAccount) {
+            bankAccount = bankAccount - subtrahend;
             showMoney();
+            makeItGrowingPlant(p_seedName, p_fieldId);
             setTimeout(
                 function () {
                     makeItPlant(p_seedName, p_fieldId);
                 },
                 waitingTime(p_seedName));
-        } 
-
+        } else {
+            err();
+        }
     } else {
         alert("Choose an irrigated field or buy and irrigate a new one.");
     }
@@ -301,7 +337,7 @@ function createPlants() {
     plantInfo.push(objectPlant);
     objectPlant = new PlantInfo_obj("marijuana", "url('\Pictures/growing_marijuana.gif')", "url('\Pictures/marijuana.jpg')", "notyet", 50, 70, 25000, );
     plantInfo.push(objectPlant);
-    objectPlant = new PlantInfo_obj('poppy', "url('\Pictures/growing_poppy.jpg')", "url('\Pictures/poppy.jpg')", "notyet", 100, 200, 30000, );
+    objectPlant = new PlantInfo_obj('poppy', "url('\Pictures/growing_poppy.gif')", "url('\Pictures/poppy.jpg')", "notyet", 100, 200, 30000, );
     plantInfo.push(objectPlant);
 }
 
@@ -331,8 +367,11 @@ function priceAndProfit() {
 
 function harvest(p_currentFieldId) {
 
-    if (cellInfo[makingIdToMarker(p_currentFieldId)].state != 'grass' && cellInfo[makingIdToMarker(p_currentFieldId)].state != 'empty') {
-        let addend = 0;
+    if (cellInfo[makingIdToMarker(p_currentFieldId)].state != 'grass' &&
+        cellInfo[makingIdToMarker(p_currentFieldId)].state != 'empty' &&
+        cellInfo[makingIdToMarker(p_currentFieldId)].state != 'growing') {
+
+        let addend;
         if (cellInfo[makingIdToMarker(p_currentFieldId)].state === 'wheat') {
             addend = plantInfo[0].harvestingIncome;
         }
@@ -356,6 +395,6 @@ function harvest(p_currentFieldId) {
         showMoney();
         developField();
     } else {
-        alert("Sow something before trying to harvest.");
+        alert("Only ripe crop can be harvested.");
     }
 }

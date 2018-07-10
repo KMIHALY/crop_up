@@ -1,4 +1,5 @@
 html, body {
+    /* 1 */
     margin: 0px 0px 0px 0px; 
     width: 504px;
     min-width: 520px;
@@ -7,6 +8,7 @@ html, body {
     }
     
 #welcomeDivID {
+    /* 100 */
     background-color: orange;
     color: black;
     position: fixed;
@@ -25,6 +27,7 @@ html, body {
 }
 
 .board {
+    /* 10 */
     position: absolute; 
     top: 50px;
     left: 50%;
@@ -33,6 +36,7 @@ html, body {
 }
 
 #table25 td {
+    /* 102 */
     background-image: url("\Pictures/soil_texture.jpg");
     background-size: 100px 100px;
     background-repeat: repeat;
@@ -40,7 +44,18 @@ html, body {
     width: 102px;
 }
 
+#table25 .fieldGrowingWheat {
+    /* 11 */
+    background-image: url(Pictures/growing_wheat.png), url(Pictures/grass_texture.jpg);
+    background-size: 100px 100px;
+    background-position: top left, top left;
+    background-repeat: no-repeat, repeat;
+    height: 102px;
+    width: 102px;
+}
+
 .cursor { 
+    /* 10 */
     cursor: pointer;
 }
 
