@@ -27,7 +27,6 @@ html, body {
 }
 
 .board {
-    /* 10 */
     position: absolute; 
     top: 50px;
     left: 50%;
@@ -36,7 +35,6 @@ html, body {
 }
 
 #table25 td {
-    /* 102 */
     background-image: url("\Pictures/soil_texture.jpg");
     background-size: 100px 100px;
     background-repeat: repeat;
@@ -45,7 +43,6 @@ html, body {
 }
 
 #table25 .fieldGrowingWheat {
-    /* 11 */
     background-image: url(Pictures/growing_wheat.png), url(Pictures/grass_texture.jpg);
     background-size: 100px 100px;
     background-position: top left, top left;
@@ -55,7 +52,6 @@ html, body {
 }
 
 .cursor { 
-    /* 10 */
     cursor: pointer;
 }
 
@@ -76,7 +72,7 @@ html, body {
 
 #timer {
     width: 140px;
-    height: 60px;
+    height: 90px;
     color: white;
     background-color: red;
     margin: auto;
@@ -113,6 +109,12 @@ button {
     width: 80%;
 }
 
+.restartButton {
+  /*  margin-top: 65px;*/
+    font-weight: bold;
+    /* z-index: +10; */
+}
+
 #displayButton {
     margin-top: 5px;
 }
@@ -139,9 +141,9 @@ button {
 }
 
 
-.titledistance {
-    margin-top: 75px;
-}
+ .titledistance {
+    margin-top: 100px;
+} 
 
 .smalltitles {
     text-align: center;

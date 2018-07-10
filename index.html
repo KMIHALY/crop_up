@@ -26,10 +26,8 @@
         <option value="10">10 min</option>
         <option value="15">15 min</option>
       </select>
-     
-      <p>Your opponent is always yourself and time. <br> Keep your eye on the countdown timer, choose the plants wisely and enjoy.</p>
-      
-     <p>Mihaly</p>
+           <p>Your opponent is always yourself and time. <br> Keep your eye on the countdown timer, choose the plants wisely and enjoy.</p>
+          <p>Mihaly</p>
      <button id="welcomeButton" onclick="countdown(); controlOn(); (function showTime() { 
         min = Number(document.getElementById('gametime').value); 
       })(); console.log(min); welcome();">Challenge accepted</button>
@@ -39,7 +37,9 @@
       <span id="timertext">remaining time</span>
       <br>
       <span id="timernumber"></span>
+      <button onclick="location.reload();" class="restartButton">RESTART</button>
     </div>
+    
     <p class="titles titledistance">Bank Account</p>
     <div class="display" id="account"></div>
     <p class="smalltitles">Golden Kitten Thaler</p>
@@ -97,7 +97,7 @@
 
   </div>
 
-  <table id="table25" class="board table25">
+  <table id="table25" class="board">
     <tr>
       <td></td>
       <td></td>

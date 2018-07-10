@@ -10,8 +10,9 @@ function controlOn() {
 }
 
 // timer code
-let score = "unknown";
-let rank = 'newbie';
+
+
+let rank = 'Nobody';
 
 let min;
 
@@ -24,7 +25,7 @@ function countdown() {
         if (min === 0 && sec === 0) {
             document.getElementById("timernumber").innerHTML = "0" + min + " : " + "0" + sec;
             clearInterval(timeToDisplay);
-            alert("The time is over. Congratulation for finishing the game. In your bank account you've managed to collect " + bankAccount + " GKT. Your rank is " + rank + ".");
+            alert("The time is over. Congratulation for finishing the game. In your bank account you've managed to collect " + record + " GKT. Your rank is " + rank + ".");
             location.reload();
         }
 
@@ -62,7 +63,6 @@ let previousFieldName = "";
 let cellInfo = [];
 
 let fieldNumber = 1;
-//let stopVar = true;
 
 function createId() {
     let fieldId = "Field_" + fieldNumber;
@@ -89,7 +89,30 @@ function createIdAttribute() {
     }
 }
 
+let record = 100;
+
 function showMoney() {
+    if (bankAccount > record) {
+        record = bankAccount;
+        if (record > 200) {
+            rank = "Newbie";
+        }
+        if (record > 400) {
+            rank = "Honourable Peasant";
+        }
+        if (record > 600) {
+            rank = "Mighty Merchant";
+        }
+        if (record > 1000) {
+            rank = "Dainty Dealer";
+        }
+        if (record > 2500) {
+            rank = "Ruler of the Underworld";
+        }
+        if (record > 10000) {
+            rank = "Briliant Borgia";
+        }
+    }
     document.getElementById("account").innerHTML = bankAccount;
 }
 
@@ -139,10 +162,8 @@ function makingIdToMarker(p_currentFieldId) {
 
 function newField(p_currentFieldId) {
     if (cellInfo[makingIdToMarker(p_currentFieldId)].state === 'empty') {
-        console.log(cellInfo[makingIdToMarker(p_currentFieldId)].state);
         // pénz ellenőrzése 
         if (bankAccount >= 20) {
-            // stopVar = true;
             // levonása
             bankAccount = bankAccount - 20;
             //ha megvan, kiiratjuk
@@ -164,7 +185,6 @@ function newField(p_currentFieldId) {
 function makeItGrass(p_currentFieldId) {
     document.getElementById(p_currentFieldId).style.backgroundImage = "url('Pictures/grass_texture.jpg')";
     cellInfo[makingIdToMarker(p_currentFieldId)].state = "grass";
-    console.log(cellInfo[makingIdToMarker(p_currentFieldId)].state);
 }
 
 function developField() {
@@ -203,14 +223,6 @@ function subtrahendCalculation(p_seedName) {
     if (p_seedName === "tomato") { subtrahend = plantInfo[3].sowingCost; };
     if (p_seedName === "marijuana") { subtrahend = plantInfo[4].sowingCost; };
     if (p_seedName === "poppy") { subtrahend = plantInfo[5].sowingCost; };
-
-    //if (subtrahend <= bankAccount) {
-
-    //  } else {
-    //    err();
-    //  stopVar = false;
-    //   console.log(stopVar);
-    //}
 }
 
 function makeItPlant(p_seedName, p_fieldId) {
@@ -245,28 +257,23 @@ function makeItGrowingPlant(p_seedName, p_fieldId) {
     document.getElementById("displayHarvest").style.display = "block";
     if (p_seedName === "wheat") {
         document.getElementById(p_fieldId).style.backgroundImage = plantInfo[0].growingPic;
-        cellInfo[makingIdToMarker(p_fieldId)].state = 'growing';
     };
     if (p_seedName === "potato") {
         document.getElementById(p_fieldId).style.backgroundImage = plantInfo[1].growingPic;
-        cellInfo[makingIdToMarker(p_fieldId)].state = 'growing';
     };
     if (p_seedName === "corn") {
         document.getElementById(p_fieldId).style.backgroundImage = plantInfo[2].growingPic;
-        cellInfo[makingIdToMarker(p_fieldId)].state = 'growing';
     };
     if (p_seedName === "tomato") {
         document.getElementById(p_fieldId).style.backgroundImage = plantInfo[3].growingPic;
-        cellInfo[makingIdToMarker(p_fieldId)].state = 'growing';
     };
     if (p_seedName === "marijuana") {
         document.getElementById(p_fieldId).style.backgroundImage = plantInfo[4].growingPic;
-        cellInfo[makingIdToMarker(p_fieldId)].state = 'growing';
     };
     if (p_seedName === "poppy") {
-        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[5].growingPic;
-        cellInfo[makingIdToMarker(p_fieldId)].state = 'growing';
+        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[5].growingPic;     
     };
+    cellInfo[makingIdToMarker(p_fieldId)].state = 'growing';
     document.getElementById(p_fieldId).style.backgroundImage += ", " + "url('Pictures/grass_texture.jpg')";
 }
 
