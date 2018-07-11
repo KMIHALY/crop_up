@@ -4,7 +4,8 @@
 <head>
   <meta charset="utf-8">
   <title>Crop UP!</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <!-- <link rel="stylesheet" type="text/css" href="animate.css"> -->
 
 </head>
 
@@ -18,19 +19,22 @@
       If you have read the first sentences, you are proven to be committed to play with the game Crop Up! <br>
       The rules are as follows:</p>
  <p>1. Make as much money as you can by growing, harvesting and selling different crops. <br>
-      2. The more money you have on your bank account, the more profitable plant you can grow and harvest, but the growing time is longer.</p>
+      2. The more money you have on your bank account, the more profitable plant you can grow and harvest, but the growing time is longer.
+    3. At 1500 GKT, you can select the fields and set them to be sowed, harvested automatically, which allows you not clicking like an idiot.
+    </p>
       
       <p>Please select the time you would like to spend playing this game:</p>
       <select id="gametime">
         <option value="5">5 min</option>
         <option value="10">10 min</option>
         <option value="15">15 min</option>
+        <option value="0">fejlesztői</option>
       </select>
            <p>Your opponent is always yourself and time. <br> Keep your eye on the countdown timer, choose the plants wisely and enjoy.</p>
           <p>Mihaly</p>
      <button id="welcomeButton" onclick="countdown(); controlOn(); (function showTime() { 
         min = Number(document.getElementById('gametime').value); 
-      })(); console.log(min); welcome();">Challenge accepted</button>
+      })(); welcome();">Challenge accepted</button>
 </div>
   <div id="controlpanel" style="display:none">
     <div id="timer">
@@ -40,13 +44,13 @@
       <button onclick="location.reload();" class="restartButton">RESTART</button>
     </div>
     
-    <p class="titles titledistance">Bank Account</p>
+    <p class="titles titleDistance">Bank Account</p>
     <div class="display" id="account"></div>
-    <p class="smalltitles">Golden Kitten Thaler</p>
+    <p class="smallTitles">Golden Kitten Thaler</p>
     <button onclick="(function() {
         selectField(currentFieldId);
         newField(currentFieldId);
-    })()">Buy and irrigate field (20)</button>
+    })()">Buy and irrigate field (-20 GKT)</button>
     <select id="seed" style="display:none">
       <option value="wheat" id="displayOptionWheat" style="display:block">Wheat</option>
       <option value="potato" id="displayOptionPotato" style="display:none">Potato</option>
@@ -57,6 +61,8 @@
     </select>
     <button onclick="sowSomething(document.getElementById('seed').value, currentFieldId)" id="displayButton" style="display:none">Sow seed</button>
     <button onclick="harvest(currentFieldId)" id="displayHarvest" style="display: none">Harvest and sell</button>
+    <button onclick="automation(document.getElementById('seed').value, currentFieldId)" id="displayAutomation" style="display:none">AUTOMATION (-200 GKT)</button>
+    <button onclick="stopAutomation(currentFieldId)" id="displayStopAutomation" style="display:none">STOP AUTOMATION (-50 GKT)</button>
     <table id="tableOfPriceAndProfit">
       <tr>
         <th>Plant</th>

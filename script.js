@@ -15,10 +15,9 @@ function controlOn() {
 let rank = 'Nobody';
 
 let min;
+let sec = 11;
 
 function countdown() {
-
-    let sec = 0;
     let timeToDisplay = setInterval(cdowncode, 1000);
 
     function cdowncode() {
@@ -41,6 +40,11 @@ function countdown() {
         if (min < 10 && sec < 10) {
             document.getElementById("timernumber").innerHTML = "0" + min + " : " + "0" + sec;
         }
+        if (min < 1 && sec < 10) {
+            document.getElementById("timer").classList.add("timerBackgroundAnimation");
+            //      document.getElementById("timertext").classList.add("timerTextColorAnimation");
+            //    document.getElementById("timernumber").classList.add("timerTextColorAnimation");
+        }
         if (sec === 0) {
             min--;
             sec = 59;
@@ -50,14 +54,11 @@ function countdown() {
     }
 }
 
-
-
-
 function showTime() {
     min = Number(document.getElementById('gametime').value);
 }
 
-let bankAccount = 100;
+let bankAccount = 1499;
 
 let previousFieldName = "";
 let cellInfo = [];
@@ -210,8 +211,9 @@ function developField() {
         document.getElementById("displayOptionPoppy").style.display = "block";
         document.getElementById("pppPoppy").style.display = "table-row";
     }
-    if (bankAccount > 200) {
-        // AUTOMATION
+    if (bankAccount > 1500) {
+        document.getElementById("displayAutomation").style.display = "block";
+        document.getElementById("displayStopAutomation").style.display = "block";
     }
 }
 
@@ -271,10 +273,11 @@ function makeItGrowingPlant(p_seedName, p_fieldId) {
         document.getElementById(p_fieldId).style.backgroundImage = plantInfo[4].growingPic;
     };
     if (p_seedName === "poppy") {
-        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[5].growingPic;     
+        document.getElementById(p_fieldId).style.backgroundImage = plantInfo[5].growingPic;
     };
     cellInfo[makingIdToMarker(p_fieldId)].state = 'growing';
     document.getElementById(p_fieldId).style.backgroundImage += ", " + "url('Pictures/grass_texture.jpg')";
+    document.getElementById(p_fieldId).classList.add("growingCropAnimation");
 }
 
 function sowSomething(p_seedName, p_fieldId) {
@@ -286,6 +289,7 @@ function sowSomething(p_seedName, p_fieldId) {
             makeItGrowingPlant(p_seedName, p_fieldId);
             setTimeout(
                 function () {
+                    document.getElementById(p_fieldId).classList.remove("growingCropAnimation");
                     makeItPlant(p_seedName, p_fieldId);
                 },
                 waitingTime(p_seedName));
@@ -397,11 +401,59 @@ function harvest(p_currentFieldId) {
         if (cellInfo[makingIdToMarker(p_currentFieldId)].state === 'poppy') {
             addend = plantInfo[5].harvestingIncome;
         }
+        console.log("aratás folyamatban");
         makeItGrass(p_currentFieldId);
+        console.log(cellInfo[makingIdToMarker(p_currentFieldId)].state);
         bankAccount = bankAccount + addend;
         showMoney();
         developField();
     } else {
         alert("Only ripe crop can be harvested.");
+    }
+}
+
+let stopper;
+let stopper_2 = true;
+
+function automation(p_seedName, p_fieldId) {
+    stopper_2 = true;
+    bankAccount = bankAccount - 200;
+    showMoney();
+    console.log("automation OK");
+    automationStart(p_seedName, p_fieldId);
+}
+
+function automationStart(p_seedName, p_fieldId) {
+    sowSomething(p_seedName, p_fieldId);
+    console.log(cellInfo[makingIdToMarker(p_fieldId)].state);
+    stopper = setTimeout(function () {
+        if (stopper_2 === true) {
+            harvest(p_fieldId);
+            showMoney();
+            console.log("setTimeout megy még");
+            automationRestart(p_seedName, p_fieldId);
+        }
+    },
+        waitingTime(p_seedName));
+}
+
+function automationRestart(p_seedName, p_fieldId) {
+    if (stopper_2 === true) {
+        console.log("automation restarted");
+        automationStart(p_seedName, p_fieldId);
+    }
+}
+
+
+function stopAutomation(p_fieldId) {
+    if (stopper_2 === true) {
+    bankAccount = bankAccount - 50;
+    showMoney();
+    clearTimeout(stopper);
+    stopper_2 = false;
+    document.getElementById(p_fieldId).classList.remove("growingCropAnimation");
+    makeItGrass(p_fieldId);
+    console.log(stopper_2);
+    console.log(cellInfo[makingIdToMarker(p_fieldId)].state);
     }
 }

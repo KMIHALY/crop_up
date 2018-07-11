@@ -3,7 +3,7 @@ html, body {
     margin: 0px 0px 0px 0px; 
     width: 504px;
     min-width: 520px;
-    background-image: url("\Pictures/drysoil.jpg");
+    background-image: url("\Pictures/drysoil2.jpg");
     background-size: cover;
     }
     
@@ -42,14 +42,14 @@ html, body {
     width: 102px;
 }
 
-#table25 .fieldGrowingWheat {
+/* #table25 .fieldGrowingWheat {
     background-image: url(Pictures/growing_wheat.png), url(Pictures/grass_texture.jpg);
     background-size: 100px 100px;
     background-position: top left, top left;
     background-repeat: no-repeat, repeat;
     height: 102px;
     width: 102px;
-}
+} */
 
 .cursor { 
     cursor: pointer;
@@ -87,8 +87,17 @@ html, body {
     font-weight: bold;
     vertical-align: bottom;
     font-size: 20px;
-    
 }
+
+.timerBackgroundAnimation {
+    animation-name: flashing;
+    -moz-animation-name: flashing;
+    -o-animation-name: flashing;
+    -webkit-animation-name: flashing;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    transition-timing-function: ease-in-out;
+} 
 
 #timernumber {
     display: inline-block;
@@ -110,9 +119,22 @@ button {
 }
 
 .restartButton {
-  /*  margin-top: 65px;*/
-    font-weight: bold;
-    /* z-index: +10; */
+      font-weight: bold;
+}
+
+ @keyframes flashing {
+    0% {background-color: red;}
+    50% {background-color: white;}
+    100% {background-color: red;}
+}
+
+@keyframes flashingText {
+    0% {color: white;}
+    50% {color: red;}
+    100% {color: white;}
+}
+.timerTextColorAnimation {
+    animation: flashingText 1s ease-in-out 0s infinite alternate;
 }
 
 #displayButton {
@@ -141,11 +163,11 @@ button {
 }
 
 
- .titledistance {
+ .titleDistance {
     margin-top: 100px;
 } 
 
-.smalltitles {
+.smallTitles {
     text-align: center;
     color: gold;
     font-weight: bold;
@@ -171,5 +193,14 @@ select {
     border-style: dashed;
     border-width: 2px;
     border-color: brown; 
+}
+
+@keyframes fieldTranslate {
+    from {transform: scale(1);}
+    to {transform: scale(0.95);}
+}
+
+.growingCropAnimation {
+    animation: fieldTranslate 1s ease-in-out 0s infinite alternate;
 }
 
