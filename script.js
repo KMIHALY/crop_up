@@ -58,7 +58,7 @@ function showTime() {
     min = Number(document.getElementById('gametime').value);
 }
 
-let bankAccount = 1499;
+let bankAccount = 100;
 
 let previousFieldName = "";
 let cellInfo = [];
@@ -444,7 +444,6 @@ function automationRestart(p_seedName, p_fieldId) {
     }
 }
 
-
 function stopAutomation(p_fieldId) {
     if (stopper_2 === true) {
     bankAccount = bankAccount - 50;
@@ -455,5 +454,5 @@ function stopAutomation(p_fieldId) {
     makeItGrass(p_fieldId);
     console.log(stopper_2);
     console.log(cellInfo[makingIdToMarker(p_fieldId)].state);
-    }
+    } 
 }
