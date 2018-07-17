@@ -10,32 +10,33 @@
 </head>
 
 <body onload="showMoney(); createIdAttribute(); addingListener(); priceAndProfit(); ">
-  
+
   <!-- page content -->
   <div id="welcomeDivID">
-  <p>Hello</p>
-  <p>My name is Mihaly, and this is my first game and also my first reference work. <br>
-      Please don't care about the beauty and outfit of the game, it's about the mechanism and the skills (What skills? ^_^). <br>
-      If you have read the first sentences, you are proven to be committed to play with the game Crop Up! <br>
-      The rules are as follows:</p>
- <p>1. Make as much money as you can by growing, harvesting and selling different crops. <br>
-      2. The more money you have on your bank account, the more profitable plant you can grow and harvest, but the growing time is longer.
-    3. At 1500 GKT, you can select the fields and set them to be sowed, harvested automatically, which allows you not clicking like an idiot.
+    <p>Hello</p>
+    <p>My name is Mihaly, and this is my first game and also my first reference work.
+      <br> Please don't care about the beauty and outfit of the game, it's about the mechanism and the skills (What skills? ^_^).
+      <br> If you have read the first sentences, you are proven to be committed to play with the game Crop Up!
+      <br> The rules are as follows:</p>
+    <p>1. Make as much money as you can by growing, harvesting and selling different crops.
+      <br> 2. The more money you have on your bank account, the more profitable plant you can grow and harvest, but the growing
+      time is longer. <br>3. At 1500 GKT (golden kitten thaler - the currency), you can select the fields and set them to be
+      sowed, harvested automatically, which allows you not clicking like an idiot.
     </p>
-      
-      <p>Please select the time you would like to spend playing this game:</p>
-      <select id="gametime">
-        <option value="5">5 min</option>
-        <option value="10">10 min</option>
-        <option value="15">15 min</option>
-        <option value="0">fejlesztői</option>
-      </select>
-           <p>Your opponent is always yourself and time. <br> Keep your eye on the countdown timer, choose the plants wisely and enjoy.</p>
-          <p>Mihaly</p>
-     <button id="welcomeButton" onclick="countdown(); controlOn(); (function showTime() { 
+    <p>Please select the time you would like to spend playing this game:</p>
+    <select id="gametime" autofocus>
+      <option value="5">5 min</option>
+      <option value="10">10 min</option>
+      <option value="15">15 min</option>
+    </select>
+    <p>Your opponent is always yourself and time.
+      <br> Keep your eye on the countdown timer, choose the plants wisely and enjoy.</p>
+    <p>Mihaly</p>
+    <button id="welcomeButton" onclick="countdown(); controlOn(); (function showTime() { 
         min = Number(document.getElementById('gametime').value); 
       })(); welcome();">Challenge accepted</button>
-</div>
+  </div>
+
   <div id="controlpanel" style="display:none">
     <div id="timer">
       <span id="timertext">remaining time</span>
@@ -43,7 +44,7 @@
       <span id="timernumber"></span>
       <button onclick="location.reload();" class="restartButton">RESTART</button>
     </div>
-    
+
     <p class="titles titleDistance">Bank Account</p>
     <div class="display" id="account"></div>
     <p class="smallTitles">Golden Kitten Thaler</p>
@@ -142,7 +143,7 @@
 
   </table>
 
-    <script type="text/javascript" src="script.js"></script>
+  <script type="text/javascript" src="script.js"></script>
 </body>
 
 </html>

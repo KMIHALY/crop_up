@@ -427,7 +427,8 @@ function automationStart(p_seedName, p_fieldId) {
     sowSomething(p_seedName, p_fieldId);
     console.log(cellInfo[makingIdToMarker(p_fieldId)].state);
     stopper = setTimeout(function () {
-        if (stopper_2 === true) {
+        if (stopper_2) {
+            console.log(stopper);
             harvest(p_fieldId);
             showMoney();
             console.log("setTimeout megy még");
@@ -436,7 +437,9 @@ function automationStart(p_seedName, p_fieldId) {
     },
         waitingTime(p_seedName));
 }
-
+// átgondolni a return használatát, ugyanis csak addig fut le egy fv.!
+//átgondolni, hogy külön mezőnkénti változóba tenni a mezők automatizáckóját ???
+//settimeOUt és cleartimeout által adott számot kiiratni
 function automationRestart(p_seedName, p_fieldId) {
     if (stopper_2 === true) {
         console.log("automation restarted");
