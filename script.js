@@ -15,7 +15,7 @@ function controlOn() {
 let rank = 'Nobody';
 
 let min;
-let sec = 11;
+let sec = 1;
 
 function countdown() {
     let timeToDisplay = setInterval(cdowncode, 1000);
@@ -76,6 +76,7 @@ let cellsNumber = document.getElementById('table25').getElementsByTagName("TD");
 function FieldInfo_obj(p_fieldId, p_state) {
     this.marker = p_fieldId;
     this.state = p_state;
+    this.isAutomationEnabled = true;
 }
 
 function createIdAttribute() {
@@ -86,6 +87,7 @@ function createIdAttribute() {
         addId.value = createId();
         let objectField = new FieldInfo_obj(addId.value, "empty");
         cellInfo.push(objectField);
+        console.log(cellInfo[i].isAutomationEnabled);
         i++;
     }
 }
@@ -352,32 +354,57 @@ function createPlants() {
     plantInfo.push(objectPlant);
 }
 
+let tablePaPIdsPl = ['plWhe', 'plPot', 'plCor', 'plTom', 'plMar', 'plPop'];
+let tablePaPIdsPri = ['priWhe', 'priPot', 'priCor', 'priTom', 'priMar', 'priPop'];
+let tablePaPIdsPro = ['proWhe', 'proPot', 'proCor', 'proTom', 'proMar', 'proPop'];
+
+
+/* function findPaPCells(item, index, plantProperty) {
+    document.getElementById(item).innerText = plantInfo[index] [plantProperty];
+} */
+
+
+function createPaPTableName(item, index) {
+    document.getElementById(item).innerText = plantInfo[index].name;
+}
+
+function createPaPTablePrice(item, index) {
+    document.getElementById(item).innerText = plantInfo[index].sowingCost;
+}
+
+function createPaPTableProfit(item, index) {
+    document.getElementById(item).innerText = plantInfo[index].harvestingIncome;
+}
+
 function priceAndProfit() {
     createPlants();
-    document.getElementById('plWhe').innerHTML = plantInfo[0].name;
-    document.getElementById('plPot').innerHTML = plantInfo[1].name;
-    document.getElementById('plCor').innerHTML = plantInfo[2].name;
-    document.getElementById('plTom').innerHTML = plantInfo[3].name;
-    document.getElementById('plMar').innerHTML = plantInfo[4].name;
-    document.getElementById('plPop').innerHTML = plantInfo[5].name;
+    tablePaPIdsPl.forEach(createPaPTableName);
+    tablePaPIdsPri.forEach(createPaPTablePrice);
+    tablePaPIdsPro.forEach(createPaPTableProfit);
 
-    document.getElementById('priWhe').innerHTML = plantInfo[0].sowingCost;
-    document.getElementById('priPot').innerHTML = plantInfo[1].sowingCost;
-    document.getElementById('priCor').innerHTML = plantInfo[2].sowingCost;
-    document.getElementById('priTom').innerHTML = plantInfo[3].sowingCost;
-    document.getElementById('priMar').innerHTML = plantInfo[4].sowingCost;
-    document.getElementById('priPop').innerHTML = plantInfo[5].sowingCost;
+    // document.getElementById('plWhe').innerHTML = plantInfo[0].name;
+    // document.getElementById('plPot').innerHTML = plantInfo[1].name;
+    // document.getElementById('plCor').innerHTML = plantInfo[2].name;
+    // document.getElementById('plTom').innerHTML = plantInfo[3].name;
+    // document.getElementById('plMar').innerHTML = plantInfo[4].name;
+    // document.getElementById('plPop').innerHTML = plantInfo[5].name;
 
-    document.getElementById('proWhe').innerHTML = plantInfo[0].harvestingIncome;
-    document.getElementById('proPot').innerHTML = plantInfo[1].harvestingIncome;
-    document.getElementById('proCor').innerHTML = plantInfo[2].harvestingIncome;
-    document.getElementById('proTom').innerHTML = plantInfo[3].harvestingIncome;
-    document.getElementById('proMar').innerHTML = plantInfo[4].harvestingIncome;
-    document.getElementById('proPop').innerHTML = plantInfo[5].harvestingIncome;
+    // document.getElementById('priWhe').innerHTML = plantInfo[0].sowingCost;
+    // document.getElementById('priPot').innerHTML = plantInfo[1].sowingCost;
+    // document.getElementById('priCor').innerHTML = plantInfo[2].sowingCost;
+    // document.getElementById('priTom').innerHTML = plantInfo[3].sowingCost;
+    // document.getElementById('priMar').innerHTML = plantInfo[4].sowingCost;
+    // document.getElementById('priPop').innerHTML = plantInfo[5].sowingCost;
+
+    // document.getElementById('proWhe').innerHTML = plantInfo[0].harvestingIncome;
+    // document.getElementById('proPot').innerHTML = plantInfo[1].harvestingIncome;
+    // document.getElementById('proCor').innerHTML = plantInfo[2].harvestingIncome;
+    // document.getElementById('proTom').innerHTML = plantInfo[3].harvestingIncome;
+    // document.getElementById('proMar').innerHTML = plantInfo[4].harvestingIncome;
+    // document.getElementById('proPop').innerHTML = plantInfo[5].harvestingIncome;
 }
 
 function harvest(p_currentFieldId) {
-
     if (cellInfo[makingIdToMarker(p_currentFieldId)].state != 'grass' &&
         cellInfo[makingIdToMarker(p_currentFieldId)].state != 'empty' &&
         cellInfo[makingIdToMarker(p_currentFieldId)].state != 'growing') {
@@ -416,7 +443,7 @@ let stopper;
 let stopper_2 = true;
 
 function automation(p_seedName, p_fieldId) {
-    stopper_2 = true;
+    cellInfo[makingIdToMarker(p_fieldId)].isAutomationEnabled = true;
     bankAccount = bankAccount - 200;
     showMoney();
     console.log("automation OK");
@@ -441,7 +468,7 @@ function automationStart(p_seedName, p_fieldId) {
 //átgondolni, hogy külön mezőnkénti változóba tenni a mezők automatizáckóját ???
 //settimeOUt és cleartimeout által adott számot kiiratni
 function automationRestart(p_seedName, p_fieldId) {
-    if (stopper_2 === true) {
+    if (cellInfo[makingIdToMarker(p_fieldId)].isAutomationEnabled === true) {
         console.log("automation restarted");
         automationStart(p_seedName, p_fieldId);
     }
@@ -449,13 +476,13 @@ function automationRestart(p_seedName, p_fieldId) {
 
 function stopAutomation(p_fieldId) {
     if (stopper_2 === true) {
-    bankAccount = bankAccount - 50;
-    showMoney();
-    clearTimeout(stopper);
-    stopper_2 = false;
-    document.getElementById(p_fieldId).classList.remove("growingCropAnimation");
-    makeItGrass(p_fieldId);
-    console.log(stopper_2);
-    console.log(cellInfo[makingIdToMarker(p_fieldId)].state);
-    } 
+        bankAccount = bankAccount - 50;
+        showMoney();
+        clearTimeout(stopper);
+        stopper_2 = false;
+        document.getElementById(p_fieldId).classList.remove("growingCropAnimation");
+        makeItGrass(p_fieldId);
+        console.log(stopper_2);
+        console.log(cellInfo[makingIdToMarker(p_fieldId)].state);
+    }
 }
