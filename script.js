@@ -1,19 +1,50 @@
 'use strict'
 
+// welcome message starts here
+function opacityReducer() {
+    opac = opac - 0.1;
+    document.getElementById('translucentBackground').style.opacity = opac;
+    console.log(document.getElementById('translucentBackground').style.opacity);
+    if (opac > 0.2) {
+        fogReducer();
+    };
+    if (opac < 0.15) {
+        removeFog();
+    }
+}
+
+function fogReducer() {
+    let mySetTimeOut = setTimeout(opacityReducer, 150);
+}
+
+let opac;
+let fog;
 function welcome() {
-    let szoveg = document.getElementById('welcomeDivID');
-    szoveg.parentNode.removeChild(szoveg);
+    let welcomeText = document.getElementById('welcomeDivID');
+    welcomeText.parentNode.removeChild(welcomeText);
+    fog = document.getElementById('translucentBackground');
+    opac = Number(window.getComputedStyle(fog).getPropertyValue("opacity"));
+    fogReducer();
+}
+
+function removeFog() {
+    fog.parentNode.removeChild(fog);
+}
+
+function makeStyleDisplay(elementId, displayType) {
+    document.getElementById(elementId).style.display = displayType;
 }
 
 function controlOn() {
-    document.getElementById("controlpanel").style.display = "block";
+    // document.getElementById("controlpanelRight").style.display = "block";
+    //  document.getElementById("controlpanelLeft").style.display = "block";
+    makeStyleDisplay("controlpanelRight", "block");
+    makeStyleDisplay("controlpanelLeft", "block");
 }
-
-// timer code
-
 
 let rank = 'Nobody';
 
+// timer starts here
 let min;
 let sec = 1;
 
@@ -42,8 +73,6 @@ function countdown() {
         }
         if (min < 1 && sec < 10) {
             document.getElementById("timer").classList.add("timerBackgroundAnimation");
-            //      document.getElementById("timertext").classList.add("timerTextColorAnimation");
-            //    document.getElementById("timernumber").classList.add("timerTextColorAnimation");
         }
         if (sec === 0) {
             min--;
@@ -58,12 +87,16 @@ function showTime() {
     min = Number(document.getElementById('gametime').value);
 }
 
+//money at the beginning
+
 let bankAccount = 100;
+
+//creation of fields and their properties
 
 let previousFieldName = "";
 let cellInfo = [];
-
 let fieldNumber = 1;
+
 
 function createId() {
     let fieldId = "Field_" + fieldNumber;
@@ -76,7 +109,8 @@ let cellsNumber = document.getElementById('table25').getElementsByTagName("TD");
 function FieldInfo_obj(p_fieldId, p_state) {
     this.marker = p_fieldId;
     this.state = p_state;
-    this.isAutomationEnabled = true;
+    this.isAutomationON = false;
+    //this means there is an ongoing automation process and you cannot start anything else in the given field
 }
 
 function createIdAttribute() {
@@ -87,7 +121,6 @@ function createIdAttribute() {
         addId.value = createId();
         let objectField = new FieldInfo_obj(addId.value, "empty");
         cellInfo.push(objectField);
-        console.log(cellInfo[i].isAutomationEnabled);
         i++;
     }
 }
@@ -121,7 +154,7 @@ function showMoney() {
 
 function err() {
     // alert("You have run out of money and lost the game. Nice work, moron.");
-    alert("I've told you to keep your eye on your money, ehh?");
+    alert("I've told you to keep your eye on your GKT money, ehh?");
 }
 
 let currentFieldId = "Field_1";
@@ -147,6 +180,7 @@ function selectField(p_fieldId) {
     selectThisField.style.width = "96px";
     selectThisField.style.height = "96px";
     currentFieldId = p_fieldId;
+    console.log("SELECTED: " + cellInfo[makingIdToMarker(currentFieldId)].state);
     previousFieldName = p_fieldId;
 }
 
@@ -165,17 +199,12 @@ function makingIdToMarker(p_currentFieldId) {
 
 function newField(p_currentFieldId) {
     if (cellInfo[makingIdToMarker(p_currentFieldId)].state === 'empty') {
-        // pénz ellenőrzése 
         if (bankAccount >= 20) {
-            // levonása
             bankAccount = bankAccount - 20;
-            //ha megvan, kiiratjuk
             showMoney();
-            // állapotot elmentjük a objektumba és a képét kicseréljük
             makeItGrass(p_currentFieldId);
-            //megjelenítjük az első növényt
-            document.getElementById("pppWheat").style.display = "table-row";
-            //megnézzük mit vethetünk
+            //document.getElementById("pppWheat").style.display = "table-row";
+            makeStyleDisplay("pppWheat", "table-row");
             developField();
         } else {
             err();
@@ -191,36 +220,56 @@ function makeItGrass(p_currentFieldId) {
 }
 
 function developField() {
-    document.getElementById("displayButton").style.display = "block";
-    document.getElementById("seed").style.display = "block";
+    //document.getElementById("displayButton").style.display = "block";
+    //document.getElementById("sowLabel").style.display = "block";
+    //document.getElementById("seed").style.display = "block";
+    makeStyleDisplay("displayButton", "block");
+    makeStyleDisplay("sowLabel", "block");
+    makeStyleDisplay("seed", "block");
     if (bankAccount > 100) {
-        document.getElementById("displayOptionPotato").style.display = "block";
-        document.getElementById("pppPotato").style.display = "table-row";
+        //  document.getElementById("displayOptionPotato").style.display = "block";
+        makeStyleDisplay("displayOptionPotato", "block");
+        //document.getElementById("pppPotato").style.display = "table-row";
+        makeStyleDisplay("pppPotato", "table-row");
     }
     if (bankAccount > 140) {
-        document.getElementById("displayOptionCorn").style.display = "block";
-        document.getElementById("pppCorn").style.display = "table-row";
+        //document.getElementById("displayOptionCorn").style.display = "block";
+        makeStyleDisplay("displayOptionCorn", "block");
+        //document.getElementById("pppCorn").style.display = "table-row";
+        makeStyleDisplay("pppCorn", "table-row");
     }
     if (bankAccount > 180) {
-        document.getElementById("displayOptionTomato").style.display = "block";
-        document.getElementById("pppTomato").style.display = "table-row";
+       // document.getElementById("displayOptionTomato").style.display = "block";
+       makeStyleDisplay("displayOptionTomato", "block");
+        //document.getElementById("pppTomato").style.display = "table-row";
+        makeStyleDisplay("pppTomato", "table-row");
     }
     if (bankAccount > 250) {
-        document.getElementById("displayOptionMarijuana").style.display = "block";
-        document.getElementById("pppMarijuana").style.display = "table-row";
+        //document.getElementById("displayOptionMarijuana").style.display = "block";
+        makeStyleDisplay("displayOptionMarijuana", "block");
+        //document.getElementById("pppMarijuana").style.display = "table-row";
+        makeStyleDisplay("pppMarijuana", "table-row");
     }
     if (bankAccount > 500) {
-        document.getElementById("displayOptionPoppy").style.display = "block";
-        document.getElementById("pppPoppy").style.display = "table-row";
+        //document.getElementById("displayOptionPoppy").style.display = "block";
+        makeStyleDisplay("displayOptionPoppy", "block");
+        //document.getElementById("pppPoppy").style.display = "table-row";
+        makeStyleDisplay("pppPoppy", "table-row");
     }
     if (bankAccount > 1500) {
-        document.getElementById("displayAutomation").style.display = "block";
-        document.getElementById("displayStopAutomation").style.display = "block";
+        //document.getElementById("displayAutomation").style.display = "block";
+        makeStyleDisplay("displayAutomation", "block");
+        //document.getElementById("autoLabel").style.display = "block";
+        makeStyleDisplay("autoLabel", "block");
+        //document.getElementById("displayStopAutomation").style.display = "block";
+        makeStyleDisplay("displayStopAutomation", "block");
+        //document.getElementById("stopAutoLabel").style.display = "block";
+        makeStyleDisplay("stopAutoLabel", "block");
     }
 }
 
 let subtrahend;
-function subtrahendCalculation(p_seedName) {
+function subtrahendSowingCalculation(p_seedName) {
     if (p_seedName === "wheat") { subtrahend = plantInfo[0].sowingCost };
     if (p_seedName === "potato") { subtrahend = plantInfo[1].sowingCost; };
     if (p_seedName === "corn") { subtrahend = plantInfo[2].sowingCost; };
@@ -257,34 +306,42 @@ function makeItPlant(p_seedName, p_fieldId) {
 }
 
 function makeItGrowingPlant(p_seedName, p_fieldId) {
-
-    document.getElementById("displayHarvest").style.display = "block";
+   // document.getElementById("displayHarvest").style.display = "block";
+    makeStyleDisplay("displayHarvest", "block");
+    //document.getElementById("harvestLabel").style.display = "block";
+    makeStyleDisplay("harvestLabel", "block");
     if (p_seedName === "wheat") {
         document.getElementById(p_fieldId).style.backgroundImage = plantInfo[0].growingPic;
+        cellInfo[makingIdToMarker(p_fieldId)].state = 'growingWheat';
     };
     if (p_seedName === "potato") {
         document.getElementById(p_fieldId).style.backgroundImage = plantInfo[1].growingPic;
+        cellInfo[makingIdToMarker(p_fieldId)].state = 'growingPotato';
     };
     if (p_seedName === "corn") {
         document.getElementById(p_fieldId).style.backgroundImage = plantInfo[2].growingPic;
+        cellInfo[makingIdToMarker(p_fieldId)].state = 'growingCorn';
     };
     if (p_seedName === "tomato") {
         document.getElementById(p_fieldId).style.backgroundImage = plantInfo[3].growingPic;
+        cellInfo[makingIdToMarker(p_fieldId)].state = 'growingTomato';
     };
     if (p_seedName === "marijuana") {
         document.getElementById(p_fieldId).style.backgroundImage = plantInfo[4].growingPic;
+        cellInfo[makingIdToMarker(p_fieldId)].state = 'growingMarijuana';
     };
     if (p_seedName === "poppy") {
         document.getElementById(p_fieldId).style.backgroundImage = plantInfo[5].growingPic;
+        cellInfo[makingIdToMarker(p_fieldId)].state = 'growingPoppy';
     };
-    cellInfo[makingIdToMarker(p_fieldId)].state = 'growing';
     document.getElementById(p_fieldId).style.backgroundImage += ", " + "url('Pictures/grass_texture.jpg')";
     document.getElementById(p_fieldId).classList.add("growingCropAnimation");
 }
 
 function sowSomething(p_seedName, p_fieldId) {
+    // if (cellInfo[makingIdToMarker(p_fieldId)].isAutomationON === false) {
     if (cellInfo[makingIdToMarker(p_fieldId)].state === "grass") {
-        subtrahendCalculation(p_seedName);
+        subtrahendSowingCalculation(p_seedName);
         if (subtrahend <= bankAccount) {
             bankAccount = bankAccount - subtrahend;
             showMoney();
@@ -301,6 +358,9 @@ function sowSomething(p_seedName, p_fieldId) {
     } else {
         alert("Choose an irrigated field or buy and irrigate a new one.");
     }
+    // } else {
+    //     alert("There is an ongoing automated process in this field.");
+    // }
 }
 
 function waitingTime(p_seedName) {
@@ -359,11 +419,6 @@ let tablePaPIdsPri = ['priWhe', 'priPot', 'priCor', 'priTom', 'priMar', 'priPop'
 let tablePaPIdsPro = ['proWhe', 'proPot', 'proCor', 'proTom', 'proMar', 'proPop'];
 
 
-/* function findPaPCells(item, index, plantProperty) {
-    document.getElementById(item).innerText = plantInfo[index] [plantProperty];
-} */
-
-
 function createPaPTableName(item, index) {
     document.getElementById(item).innerText = plantInfo[index].name;
 }
@@ -381,33 +436,14 @@ function priceAndProfit() {
     tablePaPIdsPl.forEach(createPaPTableName);
     tablePaPIdsPri.forEach(createPaPTablePrice);
     tablePaPIdsPro.forEach(createPaPTableProfit);
-
-    // document.getElementById('plWhe').innerHTML = plantInfo[0].name;
-    // document.getElementById('plPot').innerHTML = plantInfo[1].name;
-    // document.getElementById('plCor').innerHTML = plantInfo[2].name;
-    // document.getElementById('plTom').innerHTML = plantInfo[3].name;
-    // document.getElementById('plMar').innerHTML = plantInfo[4].name;
-    // document.getElementById('plPop').innerHTML = plantInfo[5].name;
-
-    // document.getElementById('priWhe').innerHTML = plantInfo[0].sowingCost;
-    // document.getElementById('priPot').innerHTML = plantInfo[1].sowingCost;
-    // document.getElementById('priCor').innerHTML = plantInfo[2].sowingCost;
-    // document.getElementById('priTom').innerHTML = plantInfo[3].sowingCost;
-    // document.getElementById('priMar').innerHTML = plantInfo[4].sowingCost;
-    // document.getElementById('priPop').innerHTML = plantInfo[5].sowingCost;
-
-    // document.getElementById('proWhe').innerHTML = plantInfo[0].harvestingIncome;
-    // document.getElementById('proPot').innerHTML = plantInfo[1].harvestingIncome;
-    // document.getElementById('proCor').innerHTML = plantInfo[2].harvestingIncome;
-    // document.getElementById('proTom').innerHTML = plantInfo[3].harvestingIncome;
-    // document.getElementById('proMar').innerHTML = plantInfo[4].harvestingIncome;
-    // document.getElementById('proPop').innerHTML = plantInfo[5].harvestingIncome;
 }
 
 function harvest(p_currentFieldId) {
+    // we check here if the current field is not a grass, not an empty field 
+    //and there is no growing plant on it//
     if (cellInfo[makingIdToMarker(p_currentFieldId)].state != 'grass' &&
         cellInfo[makingIdToMarker(p_currentFieldId)].state != 'empty' &&
-        cellInfo[makingIdToMarker(p_currentFieldId)].state != 'growing') {
+        cellInfo[makingIdToMarker(p_currentFieldId)].state.includes('growing') === false) {
 
         let addend;
         if (cellInfo[makingIdToMarker(p_currentFieldId)].state === 'wheat') {
@@ -428,7 +464,8 @@ function harvest(p_currentFieldId) {
         if (cellInfo[makingIdToMarker(p_currentFieldId)].state === 'poppy') {
             addend = plantInfo[5].harvestingIncome;
         }
-        console.log("aratás folyamatban");
+        console.log("harvesting");
+        console.log("got some money for the " + cellInfo[makingIdToMarker(p_currentFieldId)].state);
         makeItGrass(p_currentFieldId);
         console.log(cellInfo[makingIdToMarker(p_currentFieldId)].state);
         bankAccount = bankAccount + addend;
@@ -439,50 +476,46 @@ function harvest(p_currentFieldId) {
     }
 }
 
-let stopper;
-let stopper_2 = true;
-
-function automation(p_seedName, p_fieldId) {
-    cellInfo[makingIdToMarker(p_fieldId)].isAutomationEnabled = true;
-    bankAccount = bankAccount - 200;
-    showMoney();
-    console.log("automation OK");
-    automationStart(p_seedName, p_fieldId);
-}
-
-function automationStart(p_seedName, p_fieldId) {
-    sowSomething(p_seedName, p_fieldId);
-    console.log(cellInfo[makingIdToMarker(p_fieldId)].state);
-    stopper = setTimeout(function () {
-        if (stopper_2) {
-            console.log(stopper);
-            harvest(p_fieldId);
+function automationChecking(p_seedName, p_fieldId) {
+    if (cellInfo[makingIdToMarker(p_fieldId)].isAutomationON === false) {
+        if (bankAccount >= 200) {
+            bankAccount = bankAccount - 200;
             showMoney();
-            console.log("setTimeout megy még");
-            automationRestart(p_seedName, p_fieldId);
+            cellInfo[makingIdToMarker(p_fieldId)].isAutomationON = true;
+            console.log("automation enabled, it's about to begin");
+            automationStart(p_seedName, p_fieldId);
+        } else {
+            alert("You ain't got enough GKT to automate this process.");
         }
-    },
-        waitingTime(p_seedName));
-}
-// átgondolni a return használatát, ugyanis csak addig fut le egy fv.!
-//átgondolni, hogy külön mezőnkénti változóba tenni a mezők automatizáckóját ???
-//settimeOUt és cleartimeout által adott számot kiiratni
-function automationRestart(p_seedName, p_fieldId) {
-    if (cellInfo[makingIdToMarker(p_fieldId)].isAutomationEnabled === true) {
-        console.log("automation restarted");
-        automationStart(p_seedName, p_fieldId);
+    } else {
+        alert("There is an other ongoing automated process in this field.");
     }
 }
 
-function stopAutomation(p_fieldId) {
-    if (stopper_2 === true) {
-        bankAccount = bankAccount - 50;
+let automationStopper;
+
+function automationStart(p_seedName, p_fieldId) {
+    sowSomething(p_seedName, p_fieldId);
+    console.log("AUTOM BEGINS! " + cellInfo[makingIdToMarker(p_fieldId)].state);
+    automationStopper = setTimeout(function () {
+        harvest(p_fieldId);
         showMoney();
-        clearTimeout(stopper);
-        stopper_2 = false;
-        document.getElementById(p_fieldId).classList.remove("growingCropAnimation");
-        makeItGrass(p_fieldId);
-        console.log(stopper_2);
-        console.log(cellInfo[makingIdToMarker(p_fieldId)].state);
+        if (cellInfo[makingIdToMarker(p_fieldId)].isAutomationON === true) {
+            automationStart(p_seedName, p_fieldId);
+        }
+    }, waitingTime(p_seedName));
+}
+// 
+
+function stopAutomation(p_fieldId) {
+    if (cellInfo[makingIdToMarker(p_fieldId)].isAutomationON === true) {
+        if (bankAccount >= 50) {
+            cellInfo[makingIdToMarker(p_fieldId)].isAutomationON = false;
+            //clearTimeout(automationStopper);
+            bankAccount = bankAccount - 50;
+            showMoney();
+            document.getElementById(p_fieldId).classList.remove("growingCropAnimation");
+            console.log(cellInfo[makingIdToMarker(p_fieldId)].state);
+        }
     }
 }
