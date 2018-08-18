@@ -51,6 +51,11 @@ html, body {
     text-shadow: 0 0 8px #fb9f27;
 }
 
+#gametime {
+    z-index: +5;
+    position: relative;
+}
+
 .logo {
     display: block;
     margin: auto;
