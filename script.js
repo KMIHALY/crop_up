@@ -49,7 +49,7 @@ let min;
 let sec = 1;
 
 function countdown() {
-    let timeToDisplay = setInterval(cdowncode, 1000);
+    const timeToDisplay = setInterval(cdowncode, 1000);
 
     function cdowncode() {
         if (min === 0 && sec === 0) {
@@ -99,27 +99,29 @@ let fieldNumber = 1;
 
 
 function createId() {
-    let fieldId = "Field_" + fieldNumber;
+    const fieldId = "Field_" + fieldNumber;
     ++fieldNumber;
     return fieldId;
 }
 
 let cellsNumber = document.getElementById('table25').getElementsByTagName("TD");
 
-function FieldInfo_obj(p_fieldId, p_state) {
-    this.marker = p_fieldId;
-    this.state = p_state;
-    this.isAutomationON = false;
-    //this means there is an ongoing automation process and you cannot start anything else in the given field
+class FieldInfo_obj {
+    constructor(p_fieldId, p_state) {
+        this.marker = p_fieldId;
+        this.state = p_state;
+        this.isAutomationON = false;
+        //this means there is an ongoing automation process and you cannot start anything else in the given field
+    }
 }
 
 function createIdAttribute() {
     let i = 0;
     while (i < cellsNumber.length) {
-        let addId = document.createAttribute("ID");
+        const addId = document.createAttribute("ID");
         cellsNumber[i].setAttributeNode(addId);
         addId.value = createId();
-        let objectField = new FieldInfo_obj(addId.value, "empty");
+        const objectField = new FieldInfo_obj(addId.value, "empty");
         cellInfo.push(objectField);
         i++;
     }
@@ -175,20 +177,20 @@ function selectField(p_fieldId) {
     if (previousFieldName != "") {
         deSelectField(previousFieldName);
     }
-    let selectThisField = document.getElementById(p_fieldId);
+    const selectThisField = document.getElementById(p_fieldId);
     selectThisField.classList.add("fieldBorder");
     selectThisField.style.width = "96px";
     selectThisField.style.height = "96px";
     currentFieldId = p_fieldId;
-    console.log("SELECTED: " + cellInfo[makingIdToMarker(currentFieldId)].state);
+    console.log("SELECTED: " + currentFieldId + ". State: " + cellInfo[makingIdToMarker(currentFieldId)].state);
     previousFieldName = p_fieldId;
 }
 
 function deSelectField(p_fieldName) {
-    let selectThisField = document.getElementById(p_fieldName);
-    selectThisField.style.width = "100px";
-    selectThisField.style.height = "100px";
-    selectThisField.classList.remove("fieldBorder");
+    const deselectThisField = document.getElementById(p_fieldName);
+    deselectThisField.style.width = "100px";
+    deselectThisField.style.height = "100px";
+    deselectThisField.classList.remove("fieldBorder");
 }
 
 function makingIdToMarker(p_currentFieldId) {
@@ -239,8 +241,8 @@ function developField() {
         makeStyleDisplay("pppCorn", "table-row");
     }
     if (bankAccount > 180) {
-       // document.getElementById("displayOptionTomato").style.display = "block";
-       makeStyleDisplay("displayOptionTomato", "block");
+        // document.getElementById("displayOptionTomato").style.display = "block";
+        makeStyleDisplay("displayOptionTomato", "block");
         //document.getElementById("pppTomato").style.display = "table-row";
         makeStyleDisplay("pppTomato", "table-row");
     }
@@ -306,7 +308,7 @@ function makeItPlant(p_seedName, p_fieldId) {
 }
 
 function makeItGrowingPlant(p_seedName, p_fieldId) {
-   // document.getElementById("displayHarvest").style.display = "block";
+    // document.getElementById("displayHarvest").style.display = "block";
     makeStyleDisplay("displayHarvest", "block");
     //document.getElementById("harvestLabel").style.display = "block";
     makeStyleDisplay("harvestLabel", "block");
@@ -386,37 +388,39 @@ function waitingTime(p_seedName) {
     return (ripeTime);
 }
 
-function PlantInfo_obj(p_name, p_growingPic, p_pic, p_animation, p_sowingCost, p_harvestingIncome, p_ripeningTime) {
-    this.name = p_name;
-    this.growingPic = p_growingPic;
-    this.pic = p_pic;
-    this.animation = p_animation;
-    this.sowingCost = p_sowingCost;
-    this.harvestingIncome = p_harvestingIncome;
-    this.ripeningTime = p_ripeningTime;
+class PlantInfo_obj {
+    constructor(p_name, p_growingPic, p_pic, p_animation, p_sowingCost, p_harvestingIncome, p_ripeningTime) {
+        this.name = p_name;
+        this.growingPic = p_growingPic;
+        this.pic = p_pic;
+        this.animation = p_animation;
+        this.sowingCost = p_sowingCost;
+        this.harvestingIncome = p_harvestingIncome;
+        this.ripeningTime = p_ripeningTime;
+    }
 }
 
 let plantInfo = [];
 
 function createPlants() {
     let objectPlant;
-    objectPlant = new PlantInfo_obj("wheat", "url('\Pictures/growing_wheat.png')", "url('\Pictures/wheat.jpg')", "notyet", 5, 10, 10000, );
+    objectPlant = new PlantInfo_obj("wheat", "url('\Pictures/growing_wheat.png')", "url('\Pictures/wheat.jpg')", "notyet", 5, 10, 10000);
     plantInfo.push(objectPlant);
-    objectPlant = new PlantInfo_obj("potato", "url('\Pictures/growing_potato.png')", "url('\Pictures/potato.jpg')", "notyet", 8, 16, 13000, );
+    objectPlant = new PlantInfo_obj("potato", "url('\Pictures/growing_potato.png')", "url('\Pictures/potato.jpg')", "notyet", 8, 16, 13000);
     plantInfo.push(objectPlant);
-    objectPlant = new PlantInfo_obj("corn", "url('\Pictures/growing_corn.gif')", "url('\Pictures/corn.jpg')", "notyet", 15, 30, 18000, );
+    objectPlant = new PlantInfo_obj("corn", "url('\Pictures/growing_corn.gif')", "url('\Pictures/corn.jpg')", "notyet", 15, 30, 18000);
     plantInfo.push(objectPlant);
-    objectPlant = new PlantInfo_obj("tomato", "url('\Pictures/growing_tomato.gif')", "url('\Pictures/tomato.jpg')", "notyet", 30, 50, 20000, );
+    objectPlant = new PlantInfo_obj("tomato", "url('\Pictures/growing_tomato.gif')", "url('\Pictures/tomato.jpg')", "notyet", 30, 50, 20000);
     plantInfo.push(objectPlant);
-    objectPlant = new PlantInfo_obj("marijuana", "url('\Pictures/growing_marijuana.gif')", "url('\Pictures/marijuana.jpg')", "notyet", 50, 70, 25000, );
+    objectPlant = new PlantInfo_obj("marijuana", "url('\Pictures/growing_marijuana.gif')", "url('\Pictures/marijuana.jpg')", "notyet", 50, 70, 25000);
     plantInfo.push(objectPlant);
-    objectPlant = new PlantInfo_obj('poppy', "url('\Pictures/growing_poppy.gif')", "url('\Pictures/poppy.jpg')", "notyet", 100, 200, 30000, );
+    objectPlant = new PlantInfo_obj('poppy', "url('\Pictures/growing_poppy.gif')", "url('\Pictures/poppy.jpg')", "notyet", 100, 200, 30000);
     plantInfo.push(objectPlant);
 }
 
-let tablePaPIdsPl = ['plWhe', 'plPot', 'plCor', 'plTom', 'plMar', 'plPop'];
-let tablePaPIdsPri = ['priWhe', 'priPot', 'priCor', 'priTom', 'priMar', 'priPop'];
-let tablePaPIdsPro = ['proWhe', 'proPot', 'proCor', 'proTom', 'proMar', 'proPop'];
+const tablePaPIdsPl = ['plWhe', 'plPot', 'plCor', 'plTom', 'plMar', 'plPop'];
+const tablePaPIdsPri = ['priWhe', 'priPot', 'priCor', 'priTom', 'priMar', 'priPop'];
+const tablePaPIdsPro = ['proWhe', 'proPot', 'proCor', 'proTom', 'proMar', 'proPop'];
 
 
 function createPaPTableName(item, index) {
@@ -517,5 +521,66 @@ function stopAutomation(p_fieldId) {
             document.getElementById(p_fieldId).classList.remove("growingCropAnimation");
             console.log(cellInfo[makingIdToMarker(p_fieldId)].state);
         }
+    }
+}
+
+const uniKeyCode = (event) => {
+    let idToChange = Number(previousFieldName.substring(6));
+    console.log(idToChange);
+    const key = event.keyCode;
+    console.log("switch is on");
+    switch (key) {
+
+        case 38: //go up
+            idToChange -= 5;
+            if (idToChange < 1) {
+                idToChange += 25;
+            }
+            selectField("Field_" + idToChange);
+            break;
+
+        case 39: //right
+            idToChange++;
+            if (idToChange > 25) {
+                idToChange -= 25;
+            }
+            selectField("Field_" + idToChange);
+            break;
+
+        case 40: // down
+            idToChange += 5;
+            if (idToChange > 25) {
+                idToChange -= 25;
+            }
+            selectField("Field_" + idToChange);
+            break;
+
+        case 37: // left
+            idToChange--;
+            if (idToChange < 1) {
+                idToChange += 25;
+            }
+            selectField("Field_" + idToChange);
+            break;
+
+        case 81: //Q - buy a field
+            newField(currentFieldId);
+            break;
+
+        case 87: //W - sow seed
+            sowSomething(document.getElementById('seed').value, currentFieldId);
+            break;
+
+        case 69: //E - harvest
+            harvest(currentFieldId);
+            break;
+
+        case 65: //A - automation
+            automationChecking(document.getElementById('seed').value, currentFieldId)
+            break;
+
+        case 83: //S - stop automation
+            stopAutomation(currentFieldId)
+            break;
     }
 }
