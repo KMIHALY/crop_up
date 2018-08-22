@@ -22,7 +22,7 @@
     <img src="Pictures/crop-up_logo_gold.png" alt="crop-up logo" class="logo">
 
     <br>
-    <p> The rules are as follows:</p>
+    <p style="color: gold;"> The rules are as follows:</p>
     <p>1. Make as much money as you can by growing, harvesting and selling different crops.
       <br> 2. The more money you have on your bank account, the more profitable plant you can grow and harvest, but the growing
       time is
@@ -31,23 +31,29 @@
       automatically, which allows you not clicking like an idiot.
     </p>
 
-    <p>Please select the time you would like to spend playing this game:</p>
-    <select id="gametime" autofocus>
+    <p>Please select the time you would like to spend playing this game:
+    <select style="display: inline-block;" id="gametime" autofocus>
       <option value="5">5 min</option>
       <option value="10">10 min</option>
       <option value="15">15 min</option>
     </select>
+  </p>
 
-    <p>Your opponent is always yourself and time.
-      <br> Keep your eye on the countdown timer, choose the plants wisely and enjoy.</p>
-    <p>Mihaly</p>
+    <p class="titles">Keyboard Shortcuts </p>
+    <p class="smallTitles" style="display:block; width: 300px; text-align: left; margin: auto;">
+      Use the arrows to navigate on the fields!<br>
+    Q - Buy a new field <br>
+    W - Sow seed <br>
+    E - Harvest <br>
+    A - Automate production <br>
+    S - Stop automation
+    </p>
 
-    <!-- <button id="welcomeButton" onclick="welcome(); countdown(); controlOn(); (function showTime() { 
-        min = Number(document.getElementById('gametime').value); 
-    })(); ">Challenge accepted</button> -->
+    <p style="display: block; text-align: left; margin-left: 30px; color: gold;" >Keep your eye on the countdown timer, choose the plants wisely and enjoy.</p>
+    <div style="width: 70%; max-width: 400px;">
     <button id="welcomeButton" class="button" onclick="countdown(); controlOn(); showTime(); welcome();">Challenge Accepted</button>
-
-    <img src="Pictures/kittens.gif" alt="blinking kittens" class="kittens">
+    <img src="Pictures/kittens2.gif" alt="blinking kittens" class="kittens">
+  </div>
 
   </div>
 
@@ -58,6 +64,16 @@
       <br>
       <span id="timernumber"></span>
       <button onclick="location.reload();" class="button restartButton">RESTART</button>
+    </div>
+    <div>
+      <p class="titles titleDistance">Keyboard Shortcuts </p>
+      <p class="smallTitles"> <br>Use the arrows to navigate on the fields! <br> <br>
+      Q - Buy a new field <br>
+      W - Sow seed <br>
+      E - Harvest <br>
+      A - Automate production <br>
+      S - Stop automation
+      </p>
     </div>
 
     <table id="tableOfPriceAndProfit">
@@ -118,6 +134,7 @@
       <option value="marijuana" id="displayOptionMarijuana" style="display:none">Marijuana</option>
       <option value="poppy" id="displayOptionPoppy" style="display:none">Poppy</option>
     </select>
+
     <input type="image" src="Pictures\buttons\sowing_trans.png" class="button gameButton" onclick="
   if (cellInfo[makingIdToMarker(currentFieldId)].isAutomationON === false) {
     sowSomething(document.getElementById('seed').value, currentFieldId); }" id="displayButton" style="display:none">

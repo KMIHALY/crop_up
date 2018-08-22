@@ -36,8 +36,6 @@ function makeStyleDisplay(elementId, displayType) {
 }
 
 function controlOn() {
-    // document.getElementById("controlpanelRight").style.display = "block";
-    //  document.getElementById("controlpanelLeft").style.display = "block";
     makeStyleDisplay("controlpanelRight", "block");
     makeStyleDisplay("controlpanelLeft", "block");
 }
@@ -155,7 +153,6 @@ function showMoney() {
 }
 
 function err() {
-    // alert("You have run out of money and lost the game. Nice work, moron.");
     alert("I've told you to keep your eye on your GKT money, ehh?");
 }
 
@@ -205,7 +202,6 @@ function newField(p_currentFieldId) {
             bankAccount = bankAccount - 20;
             showMoney();
             makeItGrass(p_currentFieldId);
-            //document.getElementById("pppWheat").style.display = "table-row";
             makeStyleDisplay("pppWheat", "table-row");
             developField();
         } else {
@@ -222,50 +218,33 @@ function makeItGrass(p_currentFieldId) {
 }
 
 function developField() {
-    //document.getElementById("displayButton").style.display = "block";
-    //document.getElementById("sowLabel").style.display = "block";
-    //document.getElementById("seed").style.display = "block";
     makeStyleDisplay("displayButton", "block");
     makeStyleDisplay("sowLabel", "block");
     makeStyleDisplay("seed", "block");
     if (bankAccount > 100) {
-        //  document.getElementById("displayOptionPotato").style.display = "block";
         makeStyleDisplay("displayOptionPotato", "block");
-        //document.getElementById("pppPotato").style.display = "table-row";
         makeStyleDisplay("pppPotato", "table-row");
     }
-    if (bankAccount > 140) {
-        //document.getElementById("displayOptionCorn").style.display = "block";
+    if (bankAccount > 180) {
         makeStyleDisplay("displayOptionCorn", "block");
-        //document.getElementById("pppCorn").style.display = "table-row";
         makeStyleDisplay("pppCorn", "table-row");
     }
-    if (bankAccount > 180) {
-        // document.getElementById("displayOptionTomato").style.display = "block";
+    if (bankAccount > 300) {
         makeStyleDisplay("displayOptionTomato", "block");
-        //document.getElementById("pppTomato").style.display = "table-row";
         makeStyleDisplay("pppTomato", "table-row");
     }
-    if (bankAccount > 250) {
-        //document.getElementById("displayOptionMarijuana").style.display = "block";
+    if (bankAccount > 500) {
         makeStyleDisplay("displayOptionMarijuana", "block");
-        //document.getElementById("pppMarijuana").style.display = "table-row";
         makeStyleDisplay("pppMarijuana", "table-row");
     }
-    if (bankAccount > 500) {
-        //document.getElementById("displayOptionPoppy").style.display = "block";
+    if (bankAccount > 750) {
         makeStyleDisplay("displayOptionPoppy", "block");
-        //document.getElementById("pppPoppy").style.display = "table-row";
         makeStyleDisplay("pppPoppy", "table-row");
     }
     if (bankAccount > 1500) {
-        //document.getElementById("displayAutomation").style.display = "block";
         makeStyleDisplay("displayAutomation", "block");
-        //document.getElementById("autoLabel").style.display = "block";
         makeStyleDisplay("autoLabel", "block");
-        //document.getElementById("displayStopAutomation").style.display = "block";
         makeStyleDisplay("displayStopAutomation", "block");
-        //document.getElementById("stopAutoLabel").style.display = "block";
         makeStyleDisplay("stopAutoLabel", "block");
     }
 }
@@ -308,9 +287,7 @@ function makeItPlant(p_seedName, p_fieldId) {
 }
 
 function makeItGrowingPlant(p_seedName, p_fieldId) {
-    // document.getElementById("displayHarvest").style.display = "block";
     makeStyleDisplay("displayHarvest", "block");
-    //document.getElementById("harvestLabel").style.display = "block";
     makeStyleDisplay("harvestLabel", "block");
     if (p_seedName === "wheat") {
         document.getElementById(p_fieldId).style.backgroundImage = plantInfo[0].growingPic;
@@ -360,9 +337,6 @@ function sowSomething(p_seedName, p_fieldId) {
     } else {
         alert("Choose an irrigated field or buy and irrigate a new one.");
     }
-    // } else {
-    //     alert("There is an ongoing automated process in this field.");
-    // }
 }
 
 function waitingTime(p_seedName) {
@@ -406,15 +380,15 @@ function createPlants() {
     let objectPlant;
     objectPlant = new PlantInfo_obj("wheat", "url('\Pictures/growing_wheat.png')", "url('\Pictures/wheat.jpg')", "notyet", 5, 10, 10000);
     plantInfo.push(objectPlant);
-    objectPlant = new PlantInfo_obj("potato", "url('\Pictures/growing_potato.png')", "url('\Pictures/potato.jpg')", "notyet", 8, 16, 13000);
+    objectPlant = new PlantInfo_obj("potato", "url('\Pictures/growing_potato.png')", "url('\Pictures/potato.jpg')", "notyet", 8, 16, 15000);
     plantInfo.push(objectPlant);
-    objectPlant = new PlantInfo_obj("corn", "url('\Pictures/growing_corn.gif')", "url('\Pictures/corn.jpg')", "notyet", 15, 30, 18000);
+    objectPlant = new PlantInfo_obj("corn", "url('\Pictures/growing_corn.gif')", "url('\Pictures/corn.jpg')", "notyet", 15, 30, 20000);
     plantInfo.push(objectPlant);
-    objectPlant = new PlantInfo_obj("tomato", "url('\Pictures/growing_tomato.gif')", "url('\Pictures/tomato.jpg')", "notyet", 30, 50, 20000);
+    objectPlant = new PlantInfo_obj("tomato", "url('\Pictures/growing_tomato.gif')", "url('\Pictures/tomato.jpg')", "notyet", 30, 50, 30000);
     plantInfo.push(objectPlant);
-    objectPlant = new PlantInfo_obj("marijuana", "url('\Pictures/growing_marijuana.gif')", "url('\Pictures/marijuana.jpg')", "notyet", 50, 70, 25000);
+    objectPlant = new PlantInfo_obj("marijuana", "url('\Pictures/growing_marijuana.gif')", "url('\Pictures/marijuana.jpg')", "notyet", 50, 70, 40000);
     plantInfo.push(objectPlant);
-    objectPlant = new PlantInfo_obj('poppy', "url('\Pictures/growing_poppy.gif')", "url('\Pictures/poppy.jpg')", "notyet", 100, 200, 30000);
+    objectPlant = new PlantInfo_obj('poppy', "url('\Pictures/growing_poppy.gif')", "url('\Pictures/poppy.jpg')", "notyet", 100, 200, 50000);
     plantInfo.push(objectPlant);
 }
 

@@ -19,19 +19,13 @@ html, body {
 }    
 
 #welcomeDivID {
-    background: rgba(19,19,19,1);
-    background: -moz-linear-gradient(top, rgba(19,19,19,1) 0%, rgba(0,0,0,1) 23%, rgba(0,0,0,1) 27%, rgba(191,123,78,1) 51%, rgba(191,123,78,1) 79%, rgba(0,0,0,1) 97%, rgba(0,0,0,1) 100%);
-    background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(19,19,19,1)), color-stop(23%, rgba(0,0,0,1)), color-stop(27%, rgba(0,0,0,1)), color-stop(51%, rgba(191,123,78,1)), color-stop(79%, rgba(191,123,78,1)), color-stop(97%, rgba(0,0,0,1)), color-stop(100%, rgba(0,0,0,1)));
-    background: -webkit-linear-gradient(top, rgba(19,19,19,1) 0%, rgba(0,0,0,1) 23%, rgba(0,0,0,1) 27%, rgba(191,123,78,1) 51%, rgba(191,123,78,1) 79%, rgba(0,0,0,1) 97%, rgba(0,0,0,1) 100%);
-    background: -o-linear-gradient(top, rgba(19,19,19,1) 0%, rgba(0,0,0,1) 23%, rgba(0,0,0,1) 27%, rgba(191,123,78,1) 51%, rgba(191,123,78,1) 79%, rgba(0,0,0,1) 97%, rgba(0,0,0,1) 100%);
-    background: -ms-linear-gradient(top, rgba(19,19,19,1) 0%, rgba(0,0,0,1) 23%, rgba(0,0,0,1) 27%, rgba(191,123,78,1) 51%, rgba(191,123,78,1) 79%, rgba(0,0,0,1) 97%, rgba(0,0,0,1) 100%);
-    background: linear-gradient(to bottom, rgba(19,19,19,1) 0%, rgba(0,0,0,1) 23%, rgba(0,0,0,1) 27%, rgba(191,123,78,1) 51%, rgba(191,123,78,1) 79%, rgba(0,0,0,1) 97%, rgba(0,0,0,1) 100%);
-    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#131313', endColorstr='#000000', GradientType=0 );
+    background-color: rgb(13, 13, 36);
     display: block;
-    color: black;
+    color: gold;
     position: absolute;
     width: 80%;
     max-width: 600px;
+    /* min-width: 250px; */
     margin-top: 30px;
     left: 0;
     right: 0;
@@ -40,6 +34,7 @@ html, body {
     z-index: +2;
     border: 2px double black;
     padding: 15px;
+    padding-bottom: 0px;
     font-weight: bold;
     border-radius: 5px;
     text-align: center;
@@ -63,6 +58,7 @@ html, body {
 
 #welcomeButton {
     position: relative;
+    float: right;
     margin: auto;
     width: fit-content;
     font-weight: bold;
@@ -72,10 +68,12 @@ html, body {
 }
 
 .kittens {
-    position: absolute;
+    position: relative;
+    float: right;
+    /* position: absolute;
     bottom: 0;
     right: 0;
-    z-index: 4;
+    z-index: 4; */
 }
 
 #table25.board {
@@ -269,7 +267,6 @@ label {
     color: white;
     font-size: 14px;
     margin: auto;
-    margin-top: 100px;
     text-align: center;
     margin-bottom: 15px;
     border-top: 2px solid gold;
