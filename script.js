@@ -175,7 +175,8 @@ function selectField(p_fieldId) {
         deSelectField(previousFieldName);
     }
     const selectThisField = document.getElementById(p_fieldId);
-    selectThisField.classList.add("fieldBorder");
+    //selectThisField.classList.add("fieldBorder");
+    selectThisField.style.border = "2px dashed rgba(165, 42, 42, 1.0)";
     selectThisField.style.width = "96px";
     selectThisField.style.height = "96px";
     currentFieldId = p_fieldId;
@@ -187,7 +188,8 @@ function deSelectField(p_fieldName) {
     const deselectThisField = document.getElementById(p_fieldName);
     deselectThisField.style.width = "100px";
     deselectThisField.style.height = "100px";
-    deselectThisField.classList.remove("fieldBorder");
+    deselectThisField.style.border = "2px dashed rgba(165, 42, 42, 0)";
+    //   deselectThisField.classList.remove("fieldBorder");
 }
 
 function makingIdToMarker(p_currentFieldId) {
@@ -498,63 +500,65 @@ function stopAutomation(p_fieldId) {
     }
 }
 
+//keyboard shortcuts
 const uniKeyCode = (event) => {
-    let idToChange = Number(previousFieldName.substring(6));
-    console.log(idToChange);
-    const key = event.keyCode;
-    console.log("switch is on");
-    switch (key) {
+    document.getElementById("seed").blur();
+        let idToChange = Number(previousFieldName.substring(6));
+        console.log(idToChange);
+        const key = event.keyCode;
+        switch (key) {
 
-        case 38: //go up
-            idToChange -= 5;
-            if (idToChange < 1) {
-                idToChange += 25;
-            }
-            selectField("Field_" + idToChange);
-            break;
+            case 38: //go up
+                idToChange -= 5;
+                if (idToChange < 1) {
+                    idToChange += 25;
+                }
+                selectField("Field_" + idToChange);
+                break;
 
-        case 39: //right
-            idToChange++;
-            if (idToChange > 25) {
-                idToChange -= 25;
-            }
-            selectField("Field_" + idToChange);
-            break;
+            case 39: //right
+                idToChange++;
+                if (idToChange > 25) {
+                    idToChange -= 25;
+                }
+                selectField("Field_" + idToChange);
+                break;
 
-        case 40: // down
-            idToChange += 5;
-            if (idToChange > 25) {
-                idToChange -= 25;
-            }
-            selectField("Field_" + idToChange);
-            break;
+            case 40: // down
+                idToChange += 5;
+                if (idToChange > 25) {
+                    idToChange -= 25;
+                }
+                selectField("Field_" + idToChange);
+                break;
 
-        case 37: // left
-            idToChange--;
-            if (idToChange < 1) {
-                idToChange += 25;
-            }
-            selectField("Field_" + idToChange);
-            break;
+            case 37: // left
+                idToChange--;
+                if (idToChange < 1) {
+                    idToChange += 25;
+                }
+                selectField("Field_" + idToChange);
+                break;
 
-        case 81: //Q - buy a field
-            newField(currentFieldId);
-            break;
+            case 81: //Q - buy a field
+                newField(currentFieldId);
+                break;
 
-        case 87: //W - sow seed
-            sowSomething(document.getElementById('seed').value, currentFieldId);
-            break;
+            case 87: //W - sow seed
+                sowSomething(document.getElementById('seed').value, currentFieldId);
+                break;
 
-        case 69: //E - harvest
-            harvest(currentFieldId);
-            break;
+            case 69: //E - harvest
+                harvest(currentFieldId);
+                break;
 
-        case 65: //A - automation
-            automationChecking(document.getElementById('seed').value, currentFieldId)
-            break;
+            case 65: //A - automation
+                automationChecking(document.getElementById('seed').value, currentFieldId)
+                break;
 
-        case 83: //S - stop automation
-            stopAutomation(currentFieldId)
-            break;
-    }
+            case 83: //S - stop automation
+                stopAutomation(currentFieldId)
+                break;
+        }
+   // }
 }

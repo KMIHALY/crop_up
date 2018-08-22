@@ -25,14 +25,13 @@ html, body {
     position: absolute;
     width: 80%;
     max-width: 600px;
-    /* min-width: 250px; */
     margin-top: 30px;
     left: 0;
     right: 0;
     margin-left: auto;
     margin-right: auto;
     z-index: +2;
-    border: 2px double black;
+    border: 2px double gold;
     padding: 15px;
     padding-bottom: 0px;
     font-weight: bold;
@@ -70,10 +69,6 @@ html, body {
 .kittens {
     position: relative;
     float: right;
-    /* position: absolute;
-    bottom: 0;
-    right: 0;
-    z-index: 4; */
 }
 
 #table25.board {
@@ -87,8 +82,12 @@ html, body {
     background-image: url("\Pictures/soil_texture.jpg");
     background-size: 102px 102px;
     background-repeat: no-repeat;
-    height: 102px;
-    width: 102px;
+    height: 100px;
+    width: 100px;
+    border: 2px dashed red;
+    border: 2px dashed rgba(255, 0, 0, 0);
+    -webkit-background-clip: padding-box; /* for Safari */
+    background-clip: padding-box; /* for IE9+, Firefox 4+, Opera, Chrome */
 }
 
 .cursor { 
@@ -275,12 +274,6 @@ label {
 select {
     margin: auto;
     
-}
-
-.fieldBorder {
-    border-style: dashed;
-    border-width: 2px;
-    border-color: brown; 
 }
 
 @keyframes fieldTranslate {
