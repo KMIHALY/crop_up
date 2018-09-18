@@ -43,8 +43,7 @@ function controlOn() {
 let rank = 'Nobody';
 
 // timer starts here
-let min;
-let sec = 1;
+let min, sec = 1;
 
 function countdown() {
     const timeToDisplay = setInterval(cdowncode, 1000);
@@ -87,14 +86,11 @@ function showTime() {
 
 //money at the beginning
 
-let bankAccount = 5000;
+let bankAccount = 100;
 
 //creation of fields and their properties
 
-let previousFieldName = "";
-let cellInfo = [];
-let fieldNumber = 1;
-
+let previousFieldName = "", cellInfo = [], fieldNumber = 1;
 
 function createId() {
     const fieldId = "Field_" + fieldNumber;
@@ -175,8 +171,7 @@ function selectField(p_fieldId) {
         deSelectField(previousFieldName);
     }
     const selectThisField = document.getElementById(p_fieldId);
-    //selectThisField.classList.add("fieldBorder");
-    selectThisField.style.border = "2px dashed rgba(165, 42, 42, 1.0)";
+    selectThisField.style.border = "2px dashed rgba(251, 240, 16, 1.0)";
     selectThisField.style.width = "96px";
     selectThisField.style.height = "96px";
     currentFieldId = p_fieldId;
@@ -189,7 +184,6 @@ function deSelectField(p_fieldName) {
     deselectThisField.style.width = "100px";
     deselectThisField.style.height = "100px";
     deselectThisField.style.border = "2px dashed rgba(165, 42, 42, 0)";
-    //   deselectThisField.classList.remove("fieldBorder");
 }
 
 function makingIdToMarker(p_currentFieldId) {
