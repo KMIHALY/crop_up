@@ -1,35 +1,144 @@
 'use strict'
 
-// welcome message starts here
+function init() {
+    showMoney();
+    createIdAttribute();
+    addListener();
+    priceAndProfit();
+}
+
+let initialOpacity,
+    fog,
+    bankAccount = 1001,
+    topMoney = 100,
+    rank = 'Nobody',
+    fieldNumber = 1,
+    cellInfo = [],
+    currentFieldId = "Field_1",
+    previousFieldName = ""
+    ;
+
+
+let cellsNumber = document.getElementById('table25').getElementsByTagName("TD");
+
+let ranks = {
+    200: 'Newbie',
+    400: "Honourable Peasant",
+    600: "Mighty Merchant",
+    1000: "Dainty Dealer",
+    2500: "Ruler of the Underworld",
+    10000: "Briliant Borgia",
+};
+
+function showMoney() {
+    setRanks();
+    document.getElementById("account").innerHTML = bankAccount;
+}
+
+function setRanks() {
+    let item;
+    for (item in ranks) {
+        if (bankAccount > item) {
+            topMoney = bankAccount;
+            rank = ranks[item];
+        }
+    }
+}
+
+function createIdAttribute() {
+    let i = 0;
+    while (i < cellsNumber.length) {
+        const addId = document.createAttribute("ID");
+        cellsNumber[i].setAttributeNode(addId);
+        addId.value = createId();
+        const objectField = new FieldInfo_obj(addId.value, "empty");
+        cellInfo.push(objectField);
+        i++;
+    }
+}
+
+function createId() {
+    const fieldId = "Field_" + fieldNumber;
+    ++fieldNumber;
+    return fieldId;
+}
+
+class FieldInfo_obj {
+    constructor(p_fieldId, p_state) {
+        this.marker = p_fieldId;
+        this.state = p_state;
+        this.isAutomationON = false;
+        //this means there is an ongoing automation process and you cannot start anything else in the given field
+    }
+}
+
+function addListener() {
+    let i;
+    for (i = 0; i < cellsNumber.length; i++) {
+        cellsNumber[i].addEventListener("click", function () {
+            currentFieldId = this.id;
+            selectField(currentFieldId);
+        }, false);
+        cellsNumber[i].classList.add("cursor");
+    }
+}
+/*  
+    )
+    if (bankAccount > topMoney) {
+        topMoney = bankAccount;
+        if (topMoney > 200) {
+            rank = "Newbie";
+        }
+        if (topMoney > 400) {
+            rank = "Honourable Peasant";
+        }
+        if (topMoney > 600) {
+            rank = "Mighty Merchant";
+        }
+        if (topMoney > 1000) {
+            rank = "Dainty Dealer";
+        }
+        if (topMoney > 2500) {
+            rank = "Ruler of the Underworld";
+        }
+        if (topMoney > 10000) {
+            rank = "Briliant Borgia";
+        }
+    }
+    
+}
+*/
+
 function opacityReducer() {
-    opac = opac - 0.1;
-    document.getElementById('translucentBackground').style.opacity = opac;
-    console.log(document.getElementById('translucentBackground').style.opacity);
-    if (opac > 0.2) {
+    initialOpacity = initialOpacity - 0.1;
+    document.getElementById('translucentBackground').style.opacity = initialOpacity;
+    if (initialOpacity > 0.2) {
         fogReducer();
     };
-    if (opac < 0.15) {
+    if (initialOpacity < 0.15) {
         removeFog();
-    }
+    };
 }
 
 function fogReducer() {
     let mySetTimeOut = setTimeout(opacityReducer, 150);
 }
 
-let opac, fog;
+function removeFog() {
+    fog.parentNode.removeChild(fog);
+}
 
 function welcome() {
     let welcomeText = document.getElementById('welcomeDivID');
     welcomeText.parentNode.removeChild(welcomeText);
     fog = document.getElementById('translucentBackground');
-    opac = Number(window.getComputedStyle(fog).getPropertyValue("opacity"));
+    initialOpacity = Number(window.getComputedStyle(fog).getPropertyValue("opacity"));
     fogReducer();
 }
 
-function removeFog() {
-    fog.parentNode.removeChild(fog);
-}
+
+
+
 
 function makeStyleDisplay(elementId, displayType) {
     document.getElementById(elementId).style.display = displayType;
@@ -40,7 +149,6 @@ function controlOn() {
     makeStyleDisplay("controlpanelLeft", "block");
 }
 
-let rank = 'Nobody';
 
 // timer starts here
 let min, sec = 1;
@@ -52,7 +160,7 @@ function countdown() {
         if (min === 0 && sec === 0) {
             document.getElementById("timernumber").innerHTML = "0" + min + " : " + "0" + sec;
             clearInterval(timeToDisplay);
-            alert("The time is over. Congratulation for finishing the game. In your bank account you've managed to collect " + record + " GKT. Your rank is " + rank + ".");
+            alert("The time is over. Congratulation for finishing the game. In your bank account you've managed to collect " + topMoney + " GKT. Your rank is " + rank + ".");
             location.reload();
         }
 
@@ -84,86 +192,26 @@ function showTime() {
     min = Number(document.getElementById('gametime').value);
 }
 
-//money at the beginning
 
-let bankAccount = 100;
 
 //creation of fields and their properties
 
-let previousFieldName = "", cellInfo = [], fieldNumber = 1;
 
-function createId() {
-    const fieldId = "Field_" + fieldNumber;
-    ++fieldNumber;
-    return fieldId;
-}
 
-let cellsNumber = document.getElementById('table25').getElementsByTagName("TD");
 
-class FieldInfo_obj {
-    constructor(p_fieldId, p_state) {
-        this.marker = p_fieldId;
-        this.state = p_state;
-        this.isAutomationON = false;
-        //this means there is an ongoing automation process and you cannot start anything else in the given field
-    }
-}
 
-function createIdAttribute() {
-    let i = 0;
-    while (i < cellsNumber.length) {
-        const addId = document.createAttribute("ID");
-        cellsNumber[i].setAttributeNode(addId);
-        addId.value = createId();
-        const objectField = new FieldInfo_obj(addId.value, "empty");
-        cellInfo.push(objectField);
-        i++;
-    }
-}
 
-let record = 100;
 
-function showMoney() {
-    if (bankAccount > record) {
-        record = bankAccount;
-        if (record > 200) {
-            rank = "Newbie";
-        }
-        if (record > 400) {
-            rank = "Honourable Peasant";
-        }
-        if (record > 600) {
-            rank = "Mighty Merchant";
-        }
-        if (record > 1000) {
-            rank = "Dainty Dealer";
-        }
-        if (record > 2500) {
-            rank = "Ruler of the Underworld";
-        }
-        if (record > 10000) {
-            rank = "Briliant Borgia";
-        }
-    }
-    document.getElementById("account").innerHTML = bankAccount;
-}
+
+
+
+
 
 function err() {
     alert("I've told you to keep your eye on your GKT money, ehh?");
 }
 
-let currentFieldId = "Field_1";
 
-function addingListener() {
-    let i;
-    for (i = 0; i < cellsNumber.length; i++) {
-        cellsNumber[i].addEventListener("click", function () {
-            currentFieldId = this.id;
-            selectField(currentFieldId);
-        }, false);
-        cellsNumber[i].classList.add("cursor");
-    }
-}
 
 function selectField(p_fieldId) {
 
@@ -314,6 +362,7 @@ function makeItGrowingPlant(p_seedName, p_fieldId) {
 }
 
 function sowSomething(p_seedName, p_fieldId) {
+    console.log("ültetés");
     // if (cellInfo[makingIdToMarker(p_fieldId)].isAutomationON === false) {
     if (cellInfo[makingIdToMarker(p_fieldId)].state === "grass") {
         subtrahendSowingCalculation(p_seedName);
@@ -373,6 +422,28 @@ class PlantInfo_obj {
 let plantInfo = [];
 
 function createPlants() {
+    /*    console.log("CP OK");
+        const input = [
+            {
+                name: "wheat",
+                picutre: "Pictures/growing_wheat.png",
+                price: 10
+            },
+            {
+                name: "wheat2",
+                picutre: "Pictures/growing_wheat.png",
+                price: 10
+            }
+        ]
+    }
+    
+    for (i = 0; i < input.length; i++) {
+        console.log(input[i].name);
+        plantInfo.push(
+            new PlantInfo_obj(input[i].name, "url('\Pictures/growing_wheat.png')", "url('\Pictures/wheat.jpg')", "notyet", 5, 10, 10000)
+        );
+    }
+    */
     let objectPlant;
     objectPlant = new PlantInfo_obj("wheat", "url('\Pictures/growing_wheat.png')", "url('\Pictures/wheat.jpg')", "notyet", 5, 10, 10000);
     plantInfo.push(objectPlant);
@@ -464,96 +535,96 @@ function automationChecking(p_seedName, p_fieldId) {
             }
         } else {
             alert("There is an other ongoing automated process in this field.");
-        } 
+        }
     } else {
         alert("Automation is allowed only on grassfield.")
     }
 }
 
-    function automationStart(p_seedName, p_fieldId) {
-        sowSomething(p_seedName, p_fieldId);
-        console.log("AUTOM BEGINS! " + cellInfo[makingIdToMarker(p_fieldId)].state);
-        cellInfo[makingIdToMarker(p_fieldId)]['automationHandler'] = setTimeout(function () {
-            harvest(p_fieldId);
-            showMoney();
-            if (cellInfo[makingIdToMarker(p_fieldId)].isAutomationON === true) {
-                automationStart(p_seedName, p_fieldId);
-            }
-        }, waitingTime(p_seedName));
-    }
-
-
-    function stopAutomation(p_fieldId) {
+function automationStart(p_seedName, p_fieldId) {
+    sowSomething(p_seedName, p_fieldId);
+    console.log("AUTOM BEGINS! " + cellInfo[makingIdToMarker(p_fieldId)].state);
+    cellInfo[makingIdToMarker(p_fieldId)]['automationHandler'] = setTimeout(function () {
+        harvest(p_fieldId);
+        showMoney();
         if (cellInfo[makingIdToMarker(p_fieldId)].isAutomationON === true) {
-            if (bankAccount >= 50) {
-                cellInfo[makingIdToMarker(p_fieldId)].isAutomationON = false;
-                clearTimeout(cellInfo[makingIdToMarker(p_fieldId)]['automationHandler']);
-                bankAccount = bankAccount - 50;
-                showMoney();
-                document.getElementById(p_fieldId).classList.remove("growingCropAnimation");
-                console.log(cellInfo[makingIdToMarker(p_fieldId)].state);
+            automationStart(p_seedName, p_fieldId);
+        }
+    }, waitingTime(p_seedName));
+}
+
+
+function stopAutomation(p_fieldId) {
+    if (cellInfo[makingIdToMarker(p_fieldId)].isAutomationON === true) {
+        if (bankAccount >= 50) {
+            cellInfo[makingIdToMarker(p_fieldId)].isAutomationON = false;
+            clearTimeout(cellInfo[makingIdToMarker(p_fieldId)]['automationHandler']);
+            bankAccount = bankAccount - 50;
+            showMoney();
+            document.getElementById(p_fieldId).classList.remove("growingCropAnimation");
+            console.log(cellInfo[makingIdToMarker(p_fieldId)].state);
+        }
+    }
+}
+
+//keyboard shortcuts
+const uniKeyCode = (event) => {
+    document.getElementById("seed").blur();
+    let idToChange = Number(previousFieldName.substring(6));
+    console.log(idToChange);
+    const key = event.keyCode;
+    switch (key) {
+
+        case 38: //go up
+            idToChange -= 5;
+            if (idToChange < 1) {
+                idToChange += 25;
             }
-        }
+            selectField("Field_" + idToChange);
+            break;
+
+        case 39: //right
+            idToChange++;
+            if (idToChange > 25) {
+                idToChange -= 25;
+            }
+            selectField("Field_" + idToChange);
+            break;
+
+        case 40: // down
+            idToChange += 5;
+            if (idToChange > 25) {
+                idToChange -= 25;
+            }
+            selectField("Field_" + idToChange);
+            break;
+
+        case 37: // left
+            idToChange--;
+            if (idToChange < 1) {
+                idToChange += 25;
+            }
+            selectField("Field_" + idToChange);
+            break;
+
+        case 81: //Q - buy a field
+            newField(currentFieldId);
+            break;
+
+        case 87: //W - sow seed
+            sowSomething(document.getElementById('seed').value, currentFieldId);
+            break;
+
+        case 69: //E - harvest
+            harvest(currentFieldId);
+            break;
+
+        case 65: //A - automation
+            automationChecking(document.getElementById('seed').value, currentFieldId)
+            break;
+
+        case 83: //S - stop automation
+            stopAutomation(currentFieldId)
+            break;
     }
-
-    //keyboard shortcuts
-    const uniKeyCode = (event) => {
-        document.getElementById("seed").blur();
-        let idToChange = Number(previousFieldName.substring(6));
-        console.log(idToChange);
-        const key = event.keyCode;
-        switch (key) {
-
-            case 38: //go up
-                idToChange -= 5;
-                if (idToChange < 1) {
-                    idToChange += 25;
-                }
-                selectField("Field_" + idToChange);
-                break;
-
-            case 39: //right
-                idToChange++;
-                if (idToChange > 25) {
-                    idToChange -= 25;
-                }
-                selectField("Field_" + idToChange);
-                break;
-
-            case 40: // down
-                idToChange += 5;
-                if (idToChange > 25) {
-                    idToChange -= 25;
-                }
-                selectField("Field_" + idToChange);
-                break;
-
-            case 37: // left
-                idToChange--;
-                if (idToChange < 1) {
-                    idToChange += 25;
-                }
-                selectField("Field_" + idToChange);
-                break;
-
-            case 81: //Q - buy a field
-                newField(currentFieldId);
-                break;
-
-            case 87: //W - sow seed
-                sowSomething(document.getElementById('seed').value, currentFieldId);
-                break;
-
-            case 69: //E - harvest
-                harvest(currentFieldId);
-                break;
-
-            case 65: //A - automation
-                automationChecking(document.getElementById('seed').value, currentFieldId)
-                break;
-
-            case 83: //S - stop automation
-                stopAutomation(currentFieldId)
-                break;
-        }
-    }
+}
