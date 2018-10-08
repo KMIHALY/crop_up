@@ -532,6 +532,7 @@ const uniKeyCode = (event) => {
                 idToChange += 25;
             }
             selectField("Field_" + idToChange);
+            event.preventDefault();
             break;
 
         case 39: //right
@@ -540,6 +541,7 @@ const uniKeyCode = (event) => {
                 idToChange -= 25;
             }
             selectField("Field_" + idToChange);
+            event.preventDefault();
             break;
 
         case 40: // down
@@ -548,6 +550,7 @@ const uniKeyCode = (event) => {
                 idToChange -= 25;
             }
             selectField("Field_" + idToChange);
+            event.preventDefault();
             break;
 
         case 37: // left
@@ -556,6 +559,7 @@ const uniKeyCode = (event) => {
                 idToChange += 25;
             }
             selectField("Field_" + idToChange);
+            event.preventDefault();
             break;
 
         case 81: //Q - buy a field
