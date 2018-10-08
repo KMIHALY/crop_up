@@ -6,7 +6,7 @@ function init() {
     addListenerToFields();
 }
 
-let bankAccount = 1190,
+let bankAccount = 100,
     topMoney = 100,
     rank = 'Nobody',
     fieldNumber = 1,
@@ -501,7 +501,6 @@ function automationStart(seedName, fieldId) {
             }
         }, waitingTime(seedName)
     );
-    console.log(cellInfo[makingIdToMarker(fieldId)].automationHandler);
 }
 
 function waitingTime(seedName) {
@@ -517,7 +516,6 @@ function stopAutomation(fieldId) {
             bankAccount = bankAccount - 50;
             showMoney();
             document.getElementById(fieldId).classList.remove("growingCropAnimation");
-            console.log(cellInfo[makingIdToMarker(fieldId)].state);
         }
     }
 }
