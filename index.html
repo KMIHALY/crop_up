@@ -9,51 +9,56 @@
 
 </head>
 
-<body onload="init();" onkeyup="uniKeyCode(event);">
+<body onload="init();" onkeydown="uniKeyCode(event);">
 
   <!-- page content -->
   <div class="translucentBackground" id="translucentBackground">
   </div>
   <div id="welcomeDivID">
-    <p class="welcomeTopText">Hello, primary producer
-      <br> This is the game
-      <br>
+    <p class="welcomeTopText">
+      Hello, primary producer<br>
+      This is the game<br>
     </p>
     <img src="Pictures/crop-up_logo_gold.png" alt="crop-up logo" class="logo">
-
     <br>
+
     <p style="color: gold;"> The rules are as follows:</p>
-    <p>1. Make as much money as you can by growing, harvesting and selling different crops.
-      <br> 2. The more money you have on your bank account, the more profitable plant you can grow and harvest, but the growing
+    <p>
+      1. Make as much money as you can by growing, harvesting and selling different crops.<br>
+      2. The more money you have on your bank account, the more profitable plant you can grow and harvest, but the
+      growing
       time is
-      <i>longer</i>.
-      <br>3. At 1500 GKT (golden kitten thaler - the currency), you can select the fields and set them to be sowed, harvested
-      automatically, which allows you not clicking like an idiot.
+      <i>longer</i>.<br>
+      3. At 1500 GKT (golden kitten thaler - the currency), you can select the fields and set them to be sowed,
+      harvested automatically, which allows you not clicking like an idiot.
     </p>
 
     <p>Please select the time you would like to spend playing this game:
-    <select style="display: inline-block;" id="gametime" autofocus>
-      <option value="5">5 min</option>
-      <option value="10">10 min</option>
-      <option value="15">15 min</option>
-    </select>
-  </p>
+      <select style="display: inline-block;" id="gametime" autofocus>
+        <option value="5">5 min</option>
+        <option value="10">10 min</option>
+        <option value="15">15 min</option>
+      </select>
+    </p>
 
     <p class="titles">Keyboard Shortcuts </p>
     <p class="smallTitles" style="display:block; width: 300px; text-align: left; margin: auto;">
       Use the arrows to navigate on the fields!<br>
-    Q - Buy a new field <br>
-    W - Sow seed <br>
-    E - Harvest <br>
-    A - Automate production <br>
-    S - Stop automation
+      Q - Buy a new field <br>
+      W - Sow seed <br>
+      E - Harvest <br>
+      A - Automate production <br>
+      S - Stop automation
     </p>
 
-    <p style="display: block; text-align: left; margin-left: 30px; color: gold;" >Keep your eye on the countdown timer, choose the plants wisely and enjoy.</p>
+    <p style="display: block; text-align: left; margin-left: 30px; color: gold;">
+      Keep your eye on the countdown timer,
+      choose the plants wisely and enjoy.
+    </p>
     <div style="width: 70%; max-width: 400px;">
-    <button id="welcomeButton" class="button" onclick="countdown(); controlOn(); showTime(); welcome();">Challenge Accepted</button>
-    <img src="Pictures/kittens2.gif" alt="blinking kittens" class="kittens">
-  </div>
+      <button id="welcomeButton" class="button" onclick="startGame();">Challenge Accepted</button>
+      <img src="Pictures/kittens2.gif" alt="blinking kittens" class="kittens">
+    </div>
 
   </div>
 
@@ -68,89 +73,57 @@
     <div>
       <p class="titles titleDistance">Keyboard Shortcuts </p>
       <p class="smallTitles"> <br>Use the arrows to navigate on the fields! <br> <br>
-      Q - Buy a new field <br>
-      W - Sow seed <br>
-      E - Harvest <br>
-      A - Automate production <br>
-      S - Stop automation
+        Q - Buy a new field <br>
+        W - Sow seed <br>
+        E - Harvest <br>
+        A - Automate production <br>
+        S - Stop automation
       </p>
     </div>
 
-    <table id="tableOfPriceAndProfit">
+    <table id="tableOfCostAndIncome">
       <tr>
-        <th>Plant</th>
-        <th>Price</th>
-        <th>Profit</th>
+        <th><img src="Pictures/plant.png" alt="plant name"></th>
+        <th><img src="Pictures/cost.png" alt="cost"></th>
+        <th><img src="Pictures/income.png" alt="income"></th>
+        <th><img src="/Pictures/clock1600.png" alt="ripening time"></th>
       </tr>
-      <tr style="display:none" id="pppWheat">
-        <td id="plWhe"></td>
-        <td id="priWhe"></td>
-        <td id="proWhe"></td>
-      </tr>
-      <tr style="display:none" id="pppPotato">
-        <td id="plPot"></td>
-        <td id="priPot"></td>
-        <td id="proPot"></td>
-      </tr>
-      <tr style="display:none" id="pppCorn">
-        <td id="plCor"></td>
-        <td id="priCor"></td>
-        <td id="proCor"></td>
-      </tr>
-      <tr style="display:none" id="pppTomato">
-        <td id="plTom"></td>
-        <td id="priTom"></td>
-        <td id="proTom"></td>
-      </tr>
-      <tr style="display:none" id="pppMarijuana">
-        <td id="plMar"></td>
-        <td id="priMar"></td>
-        <td id="proMar"></td>
-      </tr>
-      <tr style="display:none" id="pppPoppy">
-        <td id="plPop"></td>
-        <td id="priPop"></td>
-        <td id="proPop"></td>
-      </tr>
-    </table>
 
+    </table>
+    <p id="nextPlant">
+    </p>
   </div>
 
   <div id="controlpanelLeft" style="display:none">
     <img src="Pictures/crop-up_logo_gold.png" alt="crop-up logo" class="cropUpLogo">
-    <p class="titles">Bank Account</p>
-    <div class="display" id="account"></div>
-    <p class="smallTitles">Golden Kitten Thaler</p>
-    <input type="image" src="Pictures\buttons\buyfield_trans.png" class="button gameButton" id="newFieldButton" onclick="(function() {
-      selectField(currentFieldId);
-      newField(currentFieldId);
-  })()">
+    <p class="titles">
+      Bank Account
+    </p>
+    <div class="display" id="account">
+    </div>
+    <p class="smallTitles">
+      Golden Kitten Thaler
+    </p>
+    <input type="image" src="Pictures\buttons\buyfield_trans.png" class="button gameButton" id="newFieldButton" 
+    onclick="newField(currentFieldId);">
     <label for="newFieldButton">New Field (-20 GKT)</label>
     <select id="seed" style="display:none">
-      <option value="wheat" id="displayOptionWheat" style="display:block">Wheat</option>
-      <option value="potato" id="displayOptionPotato" style="display:none">Potato</option>
-      <option value="corn" id="displayOptionCorn" style="display:none">Corn</option>
-      <option value="tomato" id="displayOptionTomato" style="display:none">Tomato</option>
-      <option value="marijuana" id="displayOptionMarijuana" style="display:none">Marijuana</option>
-      <option value="poppy" id="displayOptionPoppy" style="display:none">Poppy</option>
     </select>
 
-    <input type="image" src="Pictures\buttons\sowing_trans.png" class="button gameButton" onclick="
-  if (cellInfo[makingIdToMarker(currentFieldId)].isAutomationON === false) {
-    sowSomething(document.getElementById('seed').value, currentFieldId); }" id="displayButton" style="display:none">
-    <label for="displayButton" style="display:none" id="sowLabel">Sow Seed</label>
+    <input type="image" src="Pictures\buttons\sowing_trans.png" class="button gameButton" 
+    onclick="sowSomething(document.getElementById('seed').value, currentFieldId); " id="displaySowButton" style="display:none">
+    <label for="displaySowButton" style="display:none" id="sowLabel">Sow Seed</label>
 
-    <input type="image" src="Pictures\buttons\harvest_trans.png" class="button gameButton" onclick="
-  if (cellInfo[makingIdToMarker(currentFieldId)].isAutomationON === false) {
-  harvest(currentFieldId); }" id="displayHarvest" style="display: none">
+    <input type="image" src="Pictures\buttons\harvest_trans.png" class="button gameButton" 
+    onclick="harvest(currentFieldId);" id="displayHarvest" style="display: none">
     <label for="displayHarvest" style="display:none" id="harvestLabel">Harvest and Sell</label>
 
-    <input type="image" src="Pictures\buttons\automation_trans.png" class="button gameButton" onclick="automationChecking(document.getElementById('seed').value, currentFieldId)"
-      id="displayAutomation" style="display:none">
+    <input type="image" src="Pictures\buttons\automation_trans.png" class="button gameButton" 
+    onclick="automationChecking(document.getElementById('seed').value, currentFieldId)" id="displayAutomation" style="display:none">
     <label for="displayAutomation" style="display:none" id="autoLabel">Automation (-200 GKT)</label>
 
-    <input type="image" src="Pictures\buttons\gear_trans.png" class="button gameButton" onclick="stopAutomation(currentFieldId)"
-      id="displayStopAutomation" style="display:none">
+    <input type="image" src="Pictures\buttons\gear_trans.png" class="button gameButton" 
+    onclick="stopAutomation(currentFieldId)" id="displayStopAutomation" style="display:none">
     <label for="displayStopAutomation" style="display:none" id="stopAutoLabel">STOP Automation<br>(-50 GKT)</label>
 
   </div>
