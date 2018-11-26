@@ -212,7 +212,6 @@ class FieldInfo {
         this.marker = fieldId;
         this.state = state;
         this.isAutomationON = false;
-        //this means there is an ongoing automation process and you cannot start anything else in the given field
     }
 }
 
