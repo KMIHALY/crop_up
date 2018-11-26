@@ -13,7 +13,6 @@ let bankAccount = 5000,
     cellInfo = [],
     currentFieldId = "Field_1",
     previousFieldName = "",
-    //lastSowablePlant = "",
     min,
     sec = 1,
     automationEnabled = false;
@@ -127,7 +126,6 @@ function setTopMoney() {
 }
 
 function setRank() {
-    //find method-dal megoldani + arrow function
     let item;
     for (item in ranks) {
         if (topMoney > item) {
@@ -253,7 +251,6 @@ function makingIdToMarker(p_currentFieldId) {
     return idToMarker;
 }
 
-// WHEN CHALLENGE IS ACCEPTED, GAME STARTS
 const startGame = () => {
     countdown();
     controlPanelsOn();
@@ -396,24 +393,12 @@ function sowSomething(p_seedName, p_fieldId) {
 }
 
 function subtrahendSowingCalculation(plantName) {
-    //V1
     let plant = plants.find(
         (plant) => {
             return plant.name === plantName;
         }
     )
     return plant.sowingCost;
-
-    //V2
-    /*
-    let subtrahend;
-    plants.map((plant) => {
-        if (plant.name === plantName) {
-           subtrahend = plant.sowingCost;
-        }
-    });
-    return subtrahend;
-*/
 }
 
 function findThePlant(seedName) {
@@ -451,8 +436,6 @@ function stateOfCell(fieldId) {
 
 function harvest(fieldId) {
     if (cellInfo[makingIdToMarker(currentFieldId)].isAutomationON === false) {
-        // we check here if the current field is not a grass, not an empty field 
-        //and there is no growing plant on it//
         if (stateOfCell(fieldId) != 'grass' &&
             stateOfCell(fieldId) != 'empty' &&
             stateOfCell(fieldId).includes('growing') === false) {
@@ -519,13 +502,12 @@ function stopAutomation(fieldId) {
     }
 }
 
-//keyboard shortcuts
 const uniKeyCode = (event) => {    
     let idToChange = Number(previousFieldName.substring(6));
     const key = event.keyCode;
     switch (key) {
 
-        case 38: //go up
+        case 38: 
             idToChange -= 5;
             if (idToChange < 1) {
                 idToChange += 25;
@@ -534,7 +516,7 @@ const uniKeyCode = (event) => {
             event.preventDefault();
             break;
 
-        case 39: //right
+        case 39: 
             idToChange++;
             if (idToChange > 25) {
                 idToChange -= 25;
@@ -543,7 +525,7 @@ const uniKeyCode = (event) => {
             event.preventDefault();
             break;
 
-        case 40: // down
+        case 40: 
             idToChange += 5;
             if (idToChange > 25) {
                 idToChange -= 25;
@@ -552,7 +534,7 @@ const uniKeyCode = (event) => {
             event.preventDefault();
             break;
 
-        case 37: // left
+        case 37: 
             idToChange--;
             if (idToChange < 1) {
                 idToChange += 25;
@@ -561,24 +543,24 @@ const uniKeyCode = (event) => {
             event.preventDefault();
             break;
 
-        case 81: //Q - buy a field
+        case 81: 
             newField(currentFieldId);
             break;
 
-        case 87: //W - sow seed
+        case 87:
             sowSomething(document.getElementById('seed').value, currentFieldId);
             event.preventDefault();
             break;
 
-        case 69: //E - harvest
+        case 69:
             harvest(currentFieldId);
             break;
 
-        case 65: //A - automation
+        case 65:
             automationChecking(document.getElementById('seed').value, currentFieldId)
             break;
 
-        case 83: //S - stop automation
+        case 83:
             stopAutomation(currentFieldId)
             break;
     }
