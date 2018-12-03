@@ -6,7 +6,7 @@ function init() {
     addListenerToFields();
 }
 
-let bankAccount = 5000,
+let bankAccount = 100,
     topMoney = 100,
     rank = 'Nobody',
     fieldNumber = 1,
